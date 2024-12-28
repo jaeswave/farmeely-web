@@ -9,8 +9,10 @@ import DashboardPage from "../screens/DashboardPage";
 import LoginPage from "../screens/LoginPage";
 import SignupPage from "../screens/SignupPage";
 import NotFound from "../screens/NotFound";
+import DashboardLayout from "../Layouts/DashboardLayout";
 
-function PrivateRoute({ children }) {
+function PrivateRoute(prop) {
+  const { children } = prop;
   const isAuthenticated = localStorage.getItem("authToken");
   return isAuthenticated ? children : <Navigate to="/login" />;
 }
@@ -26,7 +28,9 @@ const AppRoutes = () => {
           path="/dashboard"
           element={
             <PrivateRoute>
-              <DashboardPage />
+              <DashboardLayout>
+                <DashboardPage />
+              </DashboardLayout>
             </PrivateRoute>
           }
         />

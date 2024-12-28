@@ -5,6 +5,7 @@ import Features from "../components/Features";
 import HowItWorks from "../components/HowItWorks";
 import Faq from "../components/Faq";
 import Subscribe from "../components/Subscribe";
+import Footer from "../components/Footer";
 const LandingPage = () => {
   return (
     <>
@@ -15,6 +16,7 @@ const LandingPage = () => {
       <HowItWorks />
       <Faq />
       <Subscribe />
+      <Footer />
     </>
   );
 };
