@@ -4,6 +4,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 import "animate.css";
 import { handleScroll } from "../utils/constant";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
 
@@ -20,8 +21,8 @@ const Navbar = () => {
         <div
           className={`${
             navOpen
-              ? "flex flex-col items-center absolute top-20 left-0 w-full bg-customGreen text-customWhite text-2xl shadow-md space-y-4 py-8 animate__animated animate__bounceInDown md:space-x-6 "
-              : "hidden md:space-x-6 md:block"
+              ? "flex flex-col items-center absolute top-20 left-0 w-full bg-customGreen text-customWhite text-2xl shadow-md space-y-4 py-8 animate__animated animate__bounceInDown "
+              : "hidden md:space-x-10 md:block"
           }`}
         >
           <a
@@ -50,7 +51,13 @@ const Navbar = () => {
           </a>
         </div>
         <div className="flex justify-between items-center space-x-6">
-          <Button title="Donate" />
+          <Link to="/login">
+            <Button title="Login" className="!bg-beige " />
+          </Link>
+          <Link to="/donate">
+            <Button title="Donate" />
+          </Link>
+
           <span className="text-3xl md:hidden" onClick={toggleNav}>
             {navOpen ? <IoMdClose /> : <GiHamburgerMenu />}
           </span>

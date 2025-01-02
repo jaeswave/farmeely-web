@@ -1,4 +1,5 @@
 import Button from "./Button";
+import { Link } from "react-router-dom";
 import hero from "../assets/images/hero.png";
 const HeroSection = () => {
   return (
@@ -15,7 +16,9 @@ const HeroSection = () => {
             </p>
 
             <div>
-              <Button title="Get Started" className="mt-12 w-40" />
+              <Link to="/signup">
+                <Button title="Get Started" className="mt-12 w-40" />
+              </Link>
             </div>
           </div>
           <div className="flex justify-center items-center bg-customGreen bg-opacity-[25%] rounded-lg p-4 transform skew-x-3">

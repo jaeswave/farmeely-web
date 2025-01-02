@@ -16,7 +16,7 @@ const FAQ = () => {
           {faqData.map((faq, index) => (
             <div
               key={index}
-              className="bg-customGreen bg-opacity-[8%] rounded-lg shadow-2xl p-4 border border-gray-200"
+              className="bg-customGreen bg-opacity-[8%] rounded-lg shadow-lg p-4 border border-gray-200"
             >
               <div
                 className="flex justify-between items-center cursor-pointer"

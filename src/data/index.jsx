@@ -22,10 +22,10 @@ export const featuresSectionData = [
       "Gain insights with Tafsir explanations and translations of Quranic verses.",
     icon: <ImBook className="text-customGreen " />,
     link: "Learn more →",
-    bgColor: "bg-customGreen",
-    linkTextColor: "text-customWhite",
-    textColor: "text-customWhite",
-    iconBgColor: "bg-customWhite",
+    bgColor: "bg-customGreen bg-opacity-10",
+    linkTextColor: "text-customGreen",
+    textColor: "text-customBlack",
+    iconBgColor: "bg-customGreen bg-opacity-30",
   },
   {
     id: 3,
@@ -61,16 +61,19 @@ export const howItWorksData = [
 
 export const faqData = [
   {
+    id: 1,
     question: "Can I change my delivery preferences?",
     answer:
       "We are an Innovative Software company 👍. Don't just take that as we have said it; check what we do here. The Academy is our 'secret sauce' as a software company. The Bootcamp is a 6-month immersive training program that gives you the tools and training you need to launch a new career. The program trains people on-campus and online on full-stack engineering.",
   },
   {
+    id: 2,
     question: "Can I change my delivery preferences?",
     answer:
       "We are an Innovative Software company 👍. Don't just take that as we have said it; check what we do here. The Academy is our 'secret sauce' as a software company. The Bootcamp is a 6-month immersive training program that gives you the tools and training you need to launch a new career. The program trains people on-campus and online on full-stack engineering.",
   },
   {
+    id: 3,
     question: "Can I change my delivery preferences?",
     answer:
       "We are an Innovative Software company 👍. Don't just take that as we have said it; check what we do here. The Academy is our 'secret sauce' as a software company. The Bootcamp is a 6-month immersive training program that gives you the tools and training you need to launch a new career. The program trains people on-campus and online on full-stack engineering.",

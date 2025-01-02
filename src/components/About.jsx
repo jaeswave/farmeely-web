@@ -1,5 +1,6 @@
 import Button from "./Button";
 import about from "../assets/images/about.png";
+import { Link } from "react-router-dom";
 const About = () => {
   return (
     <section id="about" className="py-20">
@@ -25,10 +26,12 @@ const About = () => {
             </p>
 
             <div>
-              <Button
-                title="Sign Up Now"
-                className="mt-8 w-40 bg-inherit  !text-customGreen border-2 border-customGreen"
-              />
+              <Link to="/signup">
+                <Button
+                  title="Sign Up Now"
+                  className="mt-8 w-40 bg-inherit  !text-customGreen border-2 border-customGreen"
+                />{" "}
+              </Link>
             </div>
           </div>
         </div>

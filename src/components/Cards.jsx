@@ -5,7 +5,7 @@ const Cards = (prop) => {
       {data.map((card) => (
         <div
           key={card.id}
-          className={`p-12 rounded-lg shadow-2xl ${card.bgColor} ${card.textColor} hover:shadow-lg transition-all`}
+          className={`p-12 rounded-lg shadow-lg ${card.bgColor} ${card.textColor} hover:shadow-lg transition-all`}
         >
           <div className="flex items-center justify-start space-x-4 mb-4">
             <div

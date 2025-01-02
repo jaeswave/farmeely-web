@@ -9,6 +9,7 @@ export default {
         customWhite: "#FFFFFF",
         footerBg: "#2E7D32",
         navBg: "#E8F4F8",
+        beige: "#B69A6C",
       },
     },
   },

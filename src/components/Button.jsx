@@ -2,7 +2,7 @@ const Button = (prop) => {
   const { title, className, ...props } = prop;
   return (
     <button
-      className={`text-1xl min-w-32 text-customWhite mx-auto bg-customGreen  transform transition-transform duration-300 hover:scale-95 px-4 py-2 rounded-lg  ${className}`}
+      className={`text-xs   font-bold w-16 md:w-32 mx-auto text-customWhite bg-customGreen  transform transition-transform duration-300 hover:scale-95 px-1 py-3  md:px-4  rounded-lg  ${className}`}
       {...props}
     >
       {title}

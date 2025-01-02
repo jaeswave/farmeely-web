@@ -7,9 +7,13 @@ import {
 import LandingPage from "../screens/LandingPage";
 import DashboardPage from "../screens/DashboardPage";
 import LoginPage from "../screens/LoginPage";
-import SignupPage from "../screens/SignupPage";
+import SignUpPage from "../screens/SignUpPage";
 import NotFound from "../screens/NotFound";
 import DashboardLayout from "../Layouts/DashboardLayout";
+import OtpPage from "../screens/OtpPage";
+import StartForgotPassword from "../screens/StartForgotPassword";
+import CompleteForgotPassword from "../screens/CompleteForgetPassword";
+import PreferencePage from "../screens/PreferencePage";
 
 function PrivateRoute(prop) {
   const { children } = prop;
@@ -23,18 +27,30 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/Otp" element={<OtpPage />} />
+        <Route path="/404" element={<NotFound />} />
+        <Route
+          path="/start-forget-password"
+          element={<StartForgotPassword />}
+        />
+        <Route
+          path="/complete-forget-password"
+          element={<CompleteForgotPassword />}
+        />
+
+        <Route path="/preference" element={<PreferencePage />} />
+
         <Route
           path="/dashboard"
           element={
-            <PrivateRoute>
-              <DashboardLayout>
-                <DashboardPage />
-              </DashboardLayout>
-            </PrivateRoute>
+            //<PrivateRoute>
+            <DashboardLayout>
+              <DashboardPage />
+            </DashboardLayout>
+            //</PrivateRoute>
           }
         />
-        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
