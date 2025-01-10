@@ -9,9 +9,9 @@ const FAQ = () => {
   };
 
   return (
-    <section className="py-10">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8">FAQ</h2>
+    <section className="py-10 px-2">
+      <div className="mx-auto px-2 md:px-20">
+        <h2 className="text-3xl font-bold mb-8 text-center md:text-start">FAQ</h2>
         <div className="space-y-4 grid lg:grid-rows-3 w-full">
           {faqData.map((faq, index) => (
             <div

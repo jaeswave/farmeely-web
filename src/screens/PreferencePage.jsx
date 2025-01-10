@@ -1,178 +1,244 @@
 import { Formik, Form, Field } from "formik";
 import PreferenceValidation from "../validations/PreferenceValidation";
+import { surahList } from "../data";
+import Button from "../components/Button";
+import { createCustomerPreference } from "../api";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const PreferencesPage = () => {
+const PreferenceForm = () => {
   const initialValues = {
-    frequency: "daily",
-    timeZone: "GMT +1",
-    deliveryTime: "7:00 AM",
-    startSurah: "1",
-    startVerse: "1",
-    language: "en",
-    verseLength: 2,
+    frequency: "",
+    timezone: "",
+    schedule_time: "",
+    start_surah: "",
+    start_verse: "",
+    is_language: "",
+    daily_verse_count: "",
+    start_date: "",
   };
+  const navigate = useNavigate();
 
-  // function handleChange(event) {
-  //   const { name, value } = event.target;
-  //   setValues({ ...values, [name]: value });
-  // }
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    setSubmitting(true);
 
-  const handleSubmit = (values) => {
-    console.log("Form Values:", values);
-    alert("Preferences saved successfully!");
+    try {
+      const data = await createCustomerPreference(
+        localStorage.getItem("token"),
+        values
+      );
+      if (data.success === true) {
+        toast.success(data.message);
+        resetForm();
+        setTimeout(() => navigate("/dashboard"), 2000);
+      }
+    } catch (error) {
+      toast.error(error.message || "Something went wrong!");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">Set Your Preferences</h2>
-
-      <Formik
-        initialValues={initialValues}
-        validationSchema={PreferenceValidation}
-        onSubmit={handleSubmit}
-      >
-        {({ values, errors, touched }) => (
-          <Form>
-            {/* Delivery Frequency Section */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">
-                Delivery Frequency
-              </label>
-              <div className="flex gap-4">
-                {["Daily", "Weekly", "Custom Schedule"].map((option) => (
-                  <label key={option} className="flex items-center gap-2">
-                    <Field
-                      type="radio"
-                      name="frequency"
-                      value={option.toLowerCase()}
-                      className="form-radio"
-                    />
-                    {option}
+    <div className="px-8 py-6">
+      <h2 className="text-3xl font-bold text-center">Set Your Preferences</h2>
+      <p className="text-center text-lg mb-2">
+        Customize your Quranic verse delivery to suit your schedule and
+        preferences
+      </p>
+      <div className="mx-auto px-10 py-10 rounded-lg h-[80%] bg-[#E4E3E3]">
+        <Formik
+          initialValues={initialValues}
+          validationSchema={PreferenceValidation}
+          onSubmit={handleSubmit}
+        >
+          {({ values, errors, touched, isSubmitting }) => (
+            <Form>
+              <div className="grid md:grid-cols-2 gap-6 px-3 md:px-10">
+                <div className="col-span-1">
+                  <label className="text-base font-medium block">
+                    1. Delivery Frequency Section
                   </label>
-                ))}
+                  <label className="text-sm  mb-2 block">
+                    How often would you like to receive verses?
+                  </label>
+
+                  <div className="flex gap-4">
+                    {["Daily", "Weekly", "Monthly"].map((option) => (
+                      <label key={option} className="flex items-center gap-2">
+                        <Field
+                          type="radio"
+                          name="frequency"
+                          value={option.toLowerCase()}
+                          className="form-radio"
+                        />
+                        {option}
+                      </label>
+                    ))}
+                  </div>
+                  {errors.frequency && touched.frequency && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.frequency}
+                    </p>
+                  )}
+                </div>
+
+                <div className="col-span-1">
+                  <label className="text-base font-medium block">
+                    2. Time Zone
+                  </label>
+                  <label className="text-sm  mb-2 block">
+                    Select your preferred time zone.
+                  </label>
+                  <Field
+                    as="select"
+                    name="timezone"
+                    className="form-select w-full border border-customGreen rounded p-2"
+                  >
+                    <option value="">Select Your Time Zone</option>
+                    <option value="GMT +1">GMT +1</option>
+                  </Field>
+                  {errors.timezone && touched.timezone && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.timezone}
+                    </p>
+                  )}
+                </div>
+
+                <div className="col-span-1">
+                  <label className="text-base font-medium block">
+                    3. Delivery Time Section
+                  </label>
+                  <label className="text-sm  mb-2 block">
+                    When would you like to receive verses?
+                  </label>
+                  <Field
+                    type="time"
+                    name="schedule_time"
+                    className="form-input w-full border border-customGreen rounded p-2"
+                  />
+                  {errors.schedule_time && touched.schedule_time && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.schedule_time}
+                    </p>
+                  )}
+                </div>
+
+                <div className="col-span-1">
+                  <label className="text-base font-medium block">
+                    4. Start Surah
+                  </label>
+                  <label className="text-sm  mb-2 block">
+                    Which surah would you like to start from?
+                  </label>
+                  <Field
+                    as="select"
+                    name="start_surah"
+                    className="form-select w-full border border-gray-300 rounded p-2"
+                  >
+                    <option value="">Select Surah to Start From</option>
+                    {surahList.map((surah) => (
+                      <option key={surah.number} value={surah.number}>
+                        {`Surah ${surah.number}: ${surah.name}`}
+                      </option>
+                    ))}
+                  </Field>
+                  {errors.start_surah && touched.start_surah && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.start_surah}
+                    </p>
+                  )}
+                </div>
+
+                <div className="col-span-1">
+                  <label className="text-base font-medium block">
+                    5. Start Verse
+                  </label>
+                  <label className="text-sm  mb-2 block">
+                    Which verse would you like to start from?
+                  </label>
+                  <Field
+                    type="number"
+                    name="start_verse"
+                    className=" w-full border border-gray-300 rounded p-2"
+                  />
+                  {errors.start_verse && touched.start_verse && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.start_verse}
+                    </p>
+                  )}
+                </div>
+
+                {/* Language */}
+                <div className="col-span-1">
+                  <label className="text-base font-medium block">
+                    6. Preferred Language
+                  </label>
+                  <label className="text-sm  mb-2 block">
+                    Preferred language for translation.
+                  </label>
+                  <Field
+                    as="select"
+                    name="is_language"
+                    className="form-select w-full border border-gray-300 rounded p-2"
+                  >
+                    <option value="">Preferred Language for Translation</option>
+                    <option value="en">en</option>
+                  </Field>
+                  {errors.language && touched.language && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.language}
+                    </p>
+                  )}
+                </div>
+
+                <div className="col-span-1">
+                  <label className="text-base font-medium block">
+                    7. Verse Length Section
+                  </label>
+                  <label className="text-sm mb-2  block">
+                    How many verses would you like?
+                  </label>
+
+                  <div className="flex items-center gap-5">
+                    <Field
+                      type="range"
+                      name="daily_verse_count"
+                      min="1"
+                      max="20"
+                      className="w-[80%]"
+                    />
+                    <span>{values.verse_length} Verses</span>
+                  </div>
+                </div>
+                <div className="col-span-1">
+                  <label className="text-sm font-medium  block">
+                    8. Start Date
+                  </label>
+                  <label className="text-sm  mb-2 block">
+                    When would you like to start receiving verses?
+                  </label>
+                  <Field
+                    type="date"
+                    name="start_date"
+                    className="form-input w-full border border-gray-300 rounded p-2"
+                  />
+                </div>
               </div>
-            </div>
-
-            {/* Time Zone Section */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">
-                Time Zone
-              </label>
-              <Field
-                as="select"
-                name="timeZone"
-                className="w-full p-2 border rounded"
-              >
-                <option>GMT +1</option>
-                <option>GMT +2</option>
-                <option>GMT -5</option>
-              </Field>
-            </div>
-
-            {/* Delivery Time Section */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">
-                Delivery Time
-              </label>
-              <Field
-                as="select"
-                name="deliveryTime"
-                className="w-full p-2 border rounded"
-              >
-                <option>7:00 AM</option>
-                <option>12:00 PM</option>
-                <option>6:00 PM</option>
-              </Field>
-            </div>
-
-            {/* Start Surah Section */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">
-                Start Surah
-              </label>
-              <Field
-                as="select"
-                name="startSurah"
-                className="w-full p-2 border rounded"
-              >
-                <option>Surah 1: Al-Fatihah</option>
-                <option>Surah 2: Al-Baqarah</option>
-                <option>Surah 3: Aal-E-Imran</option>
-              </Field>
-            </div>
-
-            {/* Start Verse Section */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">
-                Start Verse
-              </label>
-              <Field
-                type="number"
-                name="startVerse"
-                className="w-full p-2 border rounded"
-                min="1"
-              />
-              {errors.startVerse && touched.startVerse && (
-                <div className="text-red-500 text-sm">{errors.startVerse}</div>
-              )}
-            </div>
-
-            {/* Language Section */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">Language</label>
-              <Field
-                as="select"
-                name="language"
-                className="w-full p-2 border rounded"
-              >
-                <option>English</option>
-                <option>Arabic</option>
-                <option>Urdu</option>
-              </Field>
-            </div>
-
-            {/* Verse Length Section */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">
-                Verse Length
-              </label>
-              <div className="flex items-center gap-2">
-                <Field
-                  type="range"
-                  name="verseLength"
-                  min="1"
-                  max="10"
-                  className="w-full"
+              <div className="flex justify-center mt-10">
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="!w-1/2"
+                  title={isSubmitting ? "Submitting..." : "Save Preferences"}
                 />
-                <span>{values.verseLength} Verses</span>
               </div>
-              {errors.verseLength && touched.verseLength && (
-                <div className="text-red-500 text-sm">{errors.verseLength}</div>
-              )}
-            </div>
-
-            {/* Tafsir Explanation */}
-            <div className="mb-4 flex items-center gap-2">
-              <Field
-                type="checkbox"
-                name="tafsirExplanation"
-                className="form-checkbox"
-              />
-              <label className="text-sm font-medium">Tafsir Explanation</label>
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600"
-            >
-              Save Preferences
-            </button>
-          </Form>
-        )}
-      </Formik>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </div>
   );
 };
 
-export default PreferencesPage;
+export default PreferenceForm;

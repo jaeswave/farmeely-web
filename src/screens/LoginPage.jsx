@@ -1,8 +1,10 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import LoginValidation from "../validations/LoginValidation";
 import login from "../assets/images/login.png";
 import Button from "../components/Button";
+import { loginUser } from "../api";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const initialValues = {
@@ -10,25 +12,42 @@ const LoginPage = () => {
     password: "",
   };
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (values, { setSubmitting }) => {
     setSubmitting(true);
-    console.log("Form Submitted:", values);
-    alert("login successful");
-    setSubmitting(false);
+    const { email, password } = values;
+
+    try {
+      const response = await loginUser(email, password);
+      console.log(response);
+      if (response.data.success === true) {
+        const { access_token } = response.headers;
+        localStorage.setItem("token", access_token);
+        toast.success(response.data.message);
+        navigate("/dashboard");
+      } else {
+        toast.error("Login failed. Please check your credentials.");
+      }
+    } catch (error) {
+      toast.error(error.message); 
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <section className="px-3">
-      <div className="container mx-auto ">
-        <div className="grid lg:grid-cols-2 gap-5 py-2 ">
-          <div className="hidden md:block">
+    <section className="px-3 h-screen">
+      <div className="mx-auto ">
+        <div className="grid lg:grid-cols-2 gap-6 ">
+          <div className="hidden lg:block py-2 max-h-screen">
             <img
-              className="w-full h-auto object-cover rounded-xl"
+              className="w-full max-h-[100%] object-cover rounded-xl"
               src={login}
               alt=""
             />
           </div>
-          <div className="flex flex-col justify-center w-[90%] md:w-[90%] place-self-center">
+          <div className="flex flex-col justify-center w-full lg:w-[85%] mx-auto place-self-center px-5 py-5">
             <h1 className="text-center text-5xl font-bold">
               Login into your account
             </h1>

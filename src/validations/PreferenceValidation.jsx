@@ -31,8 +31,8 @@ const preferenceValidation = Yup.object().shape({
 
   schedule_time: Yup.string()
     .matches(
-      /^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/,
-      "Schedule time must be in HH:mm:ss format"
+      /^([01]\d|2[0-3]):([0-5]\d)$/,
+      "Schedule time must be in HH:mm format"
     )
     .required("Schedule time is required"),
 

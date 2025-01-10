@@ -3,11 +3,11 @@ import { howItWorksData } from "../data";
 const HowItWorks = () => {
   return (
     <section className="py-10">
-      <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 space-y-10 place-items-center">
-          <div className="w-[70%]">
+      <div className="mx-auto px-4">
+        <div className="grid lg:grid-cols-2 gap-16 md:gap- place-items-center">
+          <div className="max-w-[70%]">
             <h2 className="text-3xl font-bold mb-4">How It Works</h2>
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-customBlack leading-relaxed text-center md:text-start ">  
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the standard dummy text ever since
               the 1500s, when an unknown printer took a galley of type and

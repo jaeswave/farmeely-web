@@ -1,42 +1,76 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import signUpValidation from "../validations/SignUpValidation";
+import { useNavigate } from "react-router-dom";
+import signUpValidation from "../validations/signUpValidation";
+import { createCustomer } from "../api";
 import signup from "../assets/images/signup.png";
 import Button from "../components/Button";
+import { toast } from "react-toastify";
 
-const SignUpUpPage = () => {
+const SignUpPage = () => {
   const initialValues = {
     surname: "",
     othernames: "",
     email: "",
     password: "",
     confirmPassword: "",
-    phone: "", // Optional
+    phone: "",
   };
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     setSubmitting(true);
-    console.log("Form Submitted:", values);
-    alert("An OTP has been sent to your email!");
-    setSubmitting(false);
+
+    const { email } = values;
+    console.log(email);
+
+    try {
+      const data = await createCustomer(values);
+      console.log(data);
+
+      localStorage.setItem("email", email);
+
+      if (data.success === true) {
+        toast.success(data.message);
+
+        resetForm();
+
+        setTimeout(() => {
+          navigate("/verify-email");
+        }, 2000);
+      }
+    } catch (error) {
+      if (error.isVerify) {
+        localStorage.setItem("email", email);
+
+        toast.error(error.message);
+        setTimeout(() => {
+          navigate("/verify-email");
+        }, 3000);
+      } else {
+        toast.error(error.message || "Something went wrong!");
+      }
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <section className="px-3">
-      <div className="container mx-auto">
-        <div className="grid lg:grid-cols-2 gap-5 py-2 ">
-          <div className="hidden md:block">
+    <section className="px-3 h-screen">
+      <div className=" mx-auto">
+        <div className="grid lg:grid-cols-2 gap-5 ">
+          <div className="hidden lg:block max-h-screen py-2">
             <img
-              className="w-full h-auto object-cover rounded-xl"
+              className="w-full max-h-[100%] object-cover rounded-xl"
               src={signup}
               alt=""
             />
           </div>
-          <div className="flex flex-col justify-center w-[90%] md:w-[90%] place-self-center">
-            <h1 className="text-center text-5xl font-bold w-full">
+          <div className="flex flex-col justify-center w-full md:w-[85%] place-self-center mx-auto py-5 px-5">
+            <h1 className="text-center text-4xl font-bold w-full">
               Create your account
             </h1>
-            <p className="mb-10 text-center">
+            <p className="mb-2 text-center text-sm">
               Join MailMeQuran and stay connected with the Quran daily!
             </p>
             <Formik
@@ -193,4 +227,4 @@ const SignUpUpPage = () => {
   );
 };
 
-export default SignUpUpPage;
+export default SignUpPage;
