@@ -1,8 +1,8 @@
 import { useState } from "react";
 import OtpInput from "react-otp-input";
 import { toast } from "react-toastify";
-import { submitOtp } from "../api";
-import { resendOtp } from "../api";
+import { submitOtp } from "../services/api";
+import { resendOtp } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 
@@ -36,12 +36,12 @@ const VerifyEmail = () => {
 
       console.log("Response:", response);
 
-      if (response.status === true) {
+      if (response.success === true) {
         toast.success(response.message);
-        setTimeout(() => navigate("/login"), 3000);
+        // setTimeout(() => navigate("/login"), 3000);
       } else {
         toast.error(response);
-        window.location.reload();
+        // window.location.reload();
       }
     } catch (error) {
       toast.error(error || "Something went wrong! Please try again.");

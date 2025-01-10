@@ -2,7 +2,7 @@ import { Formik, Form, Field } from "formik";
 import PreferenceValidation from "../validations/PreferenceValidation";
 import { surahList } from "../data";
 import Button from "../components/Button";
-import { createCustomerPreference } from "../api";
+import { createCustomerPreference } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 

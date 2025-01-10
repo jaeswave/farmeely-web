@@ -7,7 +7,7 @@ import tafsir from "../assets/icons/tafsir.png";
 import QuranicCompletionPlan from "../components/QuranicCompletionPlan";
 import DailyRandomVerse from "../components/DailyRandomVerse";
 import { useEffect, useState } from "react";
-import { getUser } from "../api";
+import { getUser } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 

@@ -1,12 +1,23 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 import signUpValidation from "../validations/signUpValidation";
-import { createCustomer } from "../api";
+
 import signup from "../assets/images/signup.png";
 import Button from "../components/Button";
+import { useDispatch, useSelector }  from "react-redux"
+import customerSlice  from "../redux/slices/customerSlice"
 import { toast } from "react-toastify";
+import { IS_VERIFY } from "../enums";
+
 
 const SignUpPage = () => {
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const { customer, isLoading, error, response } = useSelector((state) => state.customer)
+
+  console.log("customer", customer)
+
   const initialValues = {
     surname: "",
     othernames: "",
@@ -16,43 +27,63 @@ const SignUpPage = () => {
     phone: "",
   };
 
-  const navigate = useNavigate();
+ 
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     setSubmitting(true);
 
     const { email } = values;
-    console.log(email);
+    localStorage.setItem("email", email);
 
-    try {
-      const data = await createCustomer(values);
-      console.log(data);
-
-      localStorage.setItem("email", email);
-
-      if (data.success === true) {
-        toast.success(data.message);
-
-        resetForm();
-
-        setTimeout(() => {
-          navigate("/verify-email");
-        }, 2000);
-      }
-    } catch (error) {
-      if (error.isVerify) {
-        localStorage.setItem("email", email);
-
-        toast.error(error.message);
-        setTimeout(() => {
-          navigate("/verify-email");
-        }, 3000);
-      } else {
-        toast.error(error.message || "Something went wrong!");
-      }
-    } finally {
-      setSubmitting(false);
+    dispatch(customerSlice.createCustomerAccount(values))
+    if(error){
+       toast.error(error || "Something went wrong! Please try again.");
+       return 
     }
+    if(customer.isVerify == IS_VERIFY) {
+      toast.success(customer.message || "Kidly verify your email");
+      navigate("/verify-email")
+    }
+
+      toast.success(customer.message || "Account created successfully");
+      navigate("/")
+      
+
+
+
+    // console.log(values);
+
+
+
+    // try {
+    //   const data = await createCustomer(values);
+    //   console.log(data);
+
+    //   localStorage.setItem("email", email);
+
+    //   if (data.success === true) {
+    //     toast.success(data.message);
+
+    //     resetForm();
+
+    //     setTimeout(() => {
+    //       navigate("/verify-email");
+    //     }, 2000);
+    //   }
+    // } catch (error) {
+    //   if (error.isVerify) {
+    //     localStorage.setItem("email", email);
+
+    //     toast.error(error.message);
+    //     setTimeout(() => {
+    //       navigate("/verify-email");
+    //     }, 3000);
+    //   } else {
+    //     toast.error(error.message || "Something went wrong!");
+    //   }
+    // } finally {
+    //   setSubmitting(false);
+    // }
   };
 
   return (
@@ -208,7 +239,7 @@ const SignUpPage = () => {
                       type="submit"
                       disabled={isSubmitting}
                       className="!w-full"
-                      title={isSubmitting ? "Submitting..." : "Sign Up"}
+                      title={isLoading ? "Submitting..." : "Sign Up"}
                     />
                   </div>
                 </Form>

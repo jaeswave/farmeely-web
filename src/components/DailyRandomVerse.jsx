@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
-import { fetchDailyRandomVerse } from "../api";
+import { fetchDailyRandomVerse } from "../services/api";
 import Button from "./Button";
 
 const DailyRandomVerse = () => {

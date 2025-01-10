@@ -1,0 +1,78 @@
+
+import axios from 'axios';
+
+const useGet = async (url, token=null) => {
+
+        return  axios({
+                url: url,
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+           
+    };
+
+const usePost = async (url, data, token=null) => {
+   
+        return   axios({
+            url: url,
+            method: 'post',
+            data: data,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        })
+       
+}
+
+const usePatch = async (url, data=null) => {
+    try {
+        const response = await axios({
+            url: url,
+            method: 'patch',
+            data: data,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+const useDelete = async (url) => {
+    try {
+        const response = await axios({
+            url: url,
+            method: 'delete',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+const usePut = async (url, data) => {
+    try {
+        const response = await axios({
+            url: url,
+            method: 'put',
+            data: data,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export { useGet, usePost, usePatch, useDelete, usePut };

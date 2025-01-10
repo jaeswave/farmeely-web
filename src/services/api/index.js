@@ -1,7 +1,7 @@
 import axios from "axios";
 // import {convertTo24HourFormat} from "../utils"
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "http://localhost:1290";
 
 export const fetchDailyRandomVerse = async () => {
   try {

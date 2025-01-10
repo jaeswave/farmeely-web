@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import LoginValidation from "../validations/LoginValidation";
 import login from "../assets/images/login.png";
 import Button from "../components/Button";
-import { loginUser } from "../api";
+import { loginUser } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
