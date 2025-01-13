@@ -24,19 +24,14 @@ const usePost = async (url, data, token = null) => {
 };
 
 const usePatch = async (url, data = null) => {
-  try {
-    const response = await axios({
+
+    return  axios({
       url: url,
       method: "patch",
-      // data: data,
-      // headers: {
-      //   "Content-Type": "application/json",
-      // },
+      data: data
+     
     });
-    return response.data;
-  } catch (error) {
-    return error.response.data;
-  }
+   
 };
 
 const useDelete = async (url) => {

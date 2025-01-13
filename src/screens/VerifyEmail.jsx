@@ -5,7 +5,7 @@ import { resendOtp } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { verifyCustomerAccount } from "../redux/slices/verifyEmailSlice";
+import {verifyCustomer}  from "../redux/slices/verifyEmailSlice";
 
 const VerifyEmail = () => {
   const dispatch = useDispatch();
@@ -25,19 +25,25 @@ const VerifyEmail = () => {
     e.preventDefault();
 
     const email = localStorage.getItem("email");
-    if (!email) {
-      toast.error("Something went wrong! Please try again.");
-      return;
-    }
+    // if (!email) {
+    //   toast.error("Something went wrong! Please try again.");
+    //   return;
+    // }
 
-    if (otp.length !== 6) {
-      toast.error("Please enter a valid 6-digit OTP.");
-      return;
-    }
+    // if (otp.length !== 6) {
+    //   toast.error("Please enter a valid 6-digit OTP.");
+    //   return;
+    // }
       const result = await dispatch(
-        verifyCustomerAccount({ email, otp })
-      );
-      console.log("result", result);
+        verifyCustomer({ email, otp })
+      ).unwrap();
+      if(result.status === 'error'){
+        toast.error(result.message || "Something went wrong! Please try again.");
+        return;
+      }
+
+      console.log("come over here: ", result);
+      
   
   };
 
@@ -49,6 +55,7 @@ const VerifyEmail = () => {
     }
     try {
       const response = await resendOtp(email);
+    
       if (response.success === true) {
         toast.success(response.message);
         setTimeout(() => window.location.reload(), 2000);

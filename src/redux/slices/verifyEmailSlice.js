@@ -3,12 +3,13 @@ import { usePatch} from "../../hooks";
 import Urls from "../../services/urls";
 
 
-export const verifyCustomerAccount = createAsyncThunk(
+export const verifyCustomer = createAsyncThunk(
   "verifyCustomerAccount",
   async ({ email, otp }) => {
     try {
+      console.log("i am here: ", email, otp);
       const response = await usePatch(`${Urls.verifyEmail}/${email}/${otp}`);
-      console.log("Response------:", response);
+      console.log("i am here again: ",  response.data);
       return response.data; 
     } catch (error) {
       return error.response.data;
@@ -28,14 +29,14 @@ const verifyOtpSlice = createSlice({
     },
     extraReducers: (builder) => {
       builder
-        .addCase(verifyCustomerAccount.pending, (state) => {
+        .addCase(verifyCustomer.pending, (state) => {
           state.isLoading = true;
         })
-        .addCase(verifyCustomerAccount.fulfilled, (state, action) => {
+        .addCase(verifyCustomer.fulfilled, (state, action) => {
           state.isLoading = false;
-          state.data = action.payload
+          state.data = action.payload;
         })
-        .addCase(verifyCustomerAccount.rejected, (state, action) => {
+        .addCase(verifyCustomer.rejected, (state, action) => {
           state.isLoading = false;
           state.error = action.error;
         });
