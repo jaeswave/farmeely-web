@@ -1,23 +1,17 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 import signUpValidation from "../validations/signUpValidation";
-
 import signup from "../assets/images/signup.png";
 import Button from "../components/Button";
-import { useDispatch, useSelector }  from "react-redux"
-import customerSlice  from "../redux/slices/customerSlice"
+import { useDispatch } from "react-redux";
+import { createCustomerAccount } from "../redux/slices/customerSlice";
 import { toast } from "react-toastify";
-import { IS_VERIFY } from "../enums";
-
+import { IS_VERIFY, IS_EXIST } from "../enums";
 
 const SignUpPage = () => {
-
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-  const { customer, isLoading, error, response } = useSelector((state) => state.customer)
-
-  console.log("customer", customer)
-
+  const dispatch = useDispatch();
+  // const { isLoading } = useSelector((state) => state.customer);
   const initialValues = {
     surname: "",
     othernames: "",
@@ -27,63 +21,41 @@ const SignUpPage = () => {
     phone: "",
   };
 
- 
+  // console.log(Urls.verifyEmail);
 
-  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-    setSubmitting(true);
-
+  const handleSubmit = async (values) => {
     const { email } = values;
+
+    // Store email in localStorage
     localStorage.setItem("email", email);
 
-    dispatch(customerSlice.createCustomerAccount(values))
-    if(error){
-       toast.error(error || "Something went wrong! Please try again.");
-       return 
+    // Dispatch the createCustomerAccount action
+    const result = await dispatch(createCustomerAccount(values));
+
+    if (createCustomerAccount.rejected.match(result)) {
+      console.log(result);
+      const errorMessage =
+        result.payload.message || "Something went wrong! Please try again.";
+      if (result.payload.isVerify === IS_VERIFY) {
+        toast.error(errorMessage);
+        navigate("/verify-email");
+      } else if (result.payload.isVerify === IS_EXIST) {
+        toast.error(errorMessage);
+        navigate("/login");
+      } else {
+        toast.error(errorMessage);
+      }
+      return;
     }
-    if(customer.isVerify == IS_VERIFY) {
-      toast.success(customer.message || "Kidly verify your email");
-      navigate("/verify-email")
+
+    if (createCustomerAccount.fulfilled.match(result)) {
+      const customerData = result.payload;
+      toast.success(
+        customerData.message ||
+          "Account created successfully. Please verify your account."
+      );
+      navigate("/verify-email");
     }
-
-      toast.success(customer.message || "Account created successfully");
-      navigate("/")
-      
-
-
-
-    // console.log(values);
-
-
-
-    // try {
-    //   const data = await createCustomer(values);
-    //   console.log(data);
-
-    //   localStorage.setItem("email", email);
-
-    //   if (data.success === true) {
-    //     toast.success(data.message);
-
-    //     resetForm();
-
-    //     setTimeout(() => {
-    //       navigate("/verify-email");
-    //     }, 2000);
-    //   }
-    // } catch (error) {
-    //   if (error.isVerify) {
-    //     localStorage.setItem("email", email);
-
-    //     toast.error(error.message);
-    //     setTimeout(() => {
-    //       navigate("/verify-email");
-    //     }, 3000);
-    //   } else {
-    //     toast.error(error.message || "Something went wrong!");
-    //   }
-    // } finally {
-    //   setSubmitting(false);
-    // }
   };
 
   return (
@@ -97,7 +69,7 @@ const SignUpPage = () => {
               alt=""
             />
           </div>
-          <div className="flex flex-col justify-center w-full md:w-[85%] place-self-center mx-auto py-5 px-5">
+          <div className="flex flex-col justify-center w-full md:w-[70%] place-self-center mx-auto py-5 px-5">
             <h1 className="text-center text-4xl font-bold w-full">
               Create your account
             </h1>
@@ -109,7 +81,7 @@ const SignUpPage = () => {
               validationSchema={signUpValidation}
               onSubmit={handleSubmit}
             >
-              {({ isSubmitting }) => (
+              {({ isLoading }) => (
                 <Form className="space-y-4">
                   <div>
                     <label
@@ -237,7 +209,7 @@ const SignUpPage = () => {
                   <div>
                     <Button
                       type="submit"
-                      disabled={isSubmitting}
+                      disabled={isLoading}
                       className="!w-full"
                       title={isLoading ? "Submitting..." : "Sign Up"}
                     />

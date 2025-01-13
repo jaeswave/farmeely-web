@@ -1,13 +1,11 @@
 // const baseUrl = import.meta.env.VITE_BASE_URL
-const baseUrl = "http://localhost:1290";
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
-const Urls =  {
-    userSignUp : `${baseUrl}/customer`,
-    verifyEmail : `${baseUrl}/verify-email`,
-    login: `${baseUrl}/customer/login`,
-    userDetails: `${baseUrl}/customer`,
-
-    
-}
+const Urls = {
+  userSignUp: `${baseUrl}/customer`,
+  verifyEmail: `${baseUrl}/verify-email`,
+  login: `${baseUrl}/customer/login`,
+  userData: `${baseUrl}/customer`,
+};
 
 export default Urls;

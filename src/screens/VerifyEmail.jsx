@@ -1,19 +1,23 @@
 import { useState } from "react";
 import OtpInput from "react-otp-input";
 import { toast } from "react-toastify";
-import { submitOtp } from "../services/api";
 import { resendOtp } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { verifyCustomerAccount } from "../redux/slices/verifyEmailSlice";
 
 const VerifyEmail = () => {
-  const [otp, setOtp] = useState("");
+  const dispatch = useDispatch();
+  const { isLoading, error } = useSelector((state) => state.otp);
   const navigate = useNavigate();
+
+  const [otp, setOtp] = useState("");
 
   const renderInput = (props) => (
     <input
       {...props}
-      className="!w-[70px] h-[70px] text-center text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-customGreen"
+      className="!w-[20px] sm:!w-[40px] md:!w-[70px] h-[70px] text-center text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-customGreen"
     />
   );
 
@@ -30,22 +34,11 @@ const VerifyEmail = () => {
       toast.error("Please enter a valid 6-digit OTP.");
       return;
     }
-
-    try {
-      const response = await submitOtp(email, otp);
-
-      console.log("Response:", response);
-
-      if (response.success === true) {
-        toast.success(response.message);
-        // setTimeout(() => navigate("/login"), 3000);
-      } else {
-        toast.error(response);
-        // window.location.reload();
-      }
-    } catch (error) {
-      toast.error(error || "Something went wrong! Please try again.");
-    }
+      const result = await dispatch(
+        verifyCustomerAccount({ email, otp })
+      );
+      console.log("result", result);
+  
   };
 
   const handleResendOtp = async () => {
@@ -92,7 +85,7 @@ const VerifyEmail = () => {
           <div className="flex flex-col items-center mt-6">
             <Button
               type="submit"
-              title="Verify OTP"
+              title={isLoading ? "Verifying..." : "Verify"}
               className="!w-full mb-4 !text-lg !font-bold"
             />
             <p className="text-center text-1xl text-customBlack mt-4">

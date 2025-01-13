@@ -1,12 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit'
-// import todosReducer from '../features/todos/todosSlice'
-// import filtersReducer from '../features/filters/filtersSlice'
-import customerReducer from './redux/slices/customerSlice'
+import { configureStore } from "@reduxjs/toolkit";
+import customerReducer from "./redux/slices/customerSlice";
+import otpReducer from "./redux/slices/verifyEmailSlice";
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-    // todos: todosReducer,
-    // filters: filtersReducer,
-     customer : customerReducer
+    customer: customerReducer,
+    otp: otpReducer
   },
-})
+});
+
+
+
+export default store;
