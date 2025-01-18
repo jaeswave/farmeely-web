@@ -10,12 +10,18 @@ import PreferencePage from "../screens/PreferencePage";
 import MyVerses from "../components/MyVerses";
 import Bookmarks from "../components/Bookmarks";
 import DonationPage from "../components/DonationPage";
+import UpdatePreference from "../screens/UpdatePreference";
 
 const Paths = [
   { path: "/", element: <LandingPage />, protected: false, layout: false },
   { path: "/login", element: <LoginPage />, protected: false, layout: false },
   { path: "/signup", element: <SignUpPage />, protected: false, layout: false },
-  { path: "/verify-email", element: <VerifyEmail />, protected: false, layout: false },
+  {
+    path: "/verify-email",
+    element: <VerifyEmail />,
+    protected: false,
+    layout: false,
+  },
   { path: "/404", element: <NotFound />, protected: false, layout: false },
   {
     path: "/donate",
@@ -49,6 +55,11 @@ const Paths = [
     protected: true,
     layout: true,
   },
+  { path: "/update-preference",
+    element: <UpdatePreference />,
+    protected: true,
+    layout: true
+  }
 ];
 
 export default Paths;

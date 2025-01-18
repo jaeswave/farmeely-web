@@ -1,15 +1,14 @@
 import { useState } from "react";
 import OtpInput from "react-otp-input";
 import { toast } from "react-toastify";
-import { resendOtp } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { useDispatch, useSelector } from "react-redux";
-import {verifyCustomer}  from "../redux/slices/verifyEmailSlice";
+import { verifyCustomer, resendOtp } from "../redux/slices/verifyEmailSlice";
 
 const VerifyEmail = () => {
   const dispatch = useDispatch();
-  const { isLoading, error } = useSelector((state) => state.otp);
+  const { isLoading } = useSelector((state) => state.otp);
   const navigate = useNavigate();
 
   const [otp, setOtp] = useState("");
@@ -21,49 +20,38 @@ const VerifyEmail = () => {
     />
   );
 
+  const email = localStorage.getItem("email");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const email = localStorage.getItem("email");
-    // if (!email) {
-    //   toast.error("Something went wrong! Please try again.");
-    //   return;
-    // }
+    const result = await dispatch(verifyCustomer({ email, otp })).unwrap();
+    console.log(result);
+    if (result.status === "failed") {
+      toast.error(result.message || "Something went wrong! Please try again.");
+      return;
+    }
 
-    // if (otp.length !== 6) {
-    //   toast.error("Please enter a valid 6-digit OTP.");
-    //   return;
-    // }
-      const result = await dispatch(
-        verifyCustomer({ email, otp })
-      ).unwrap();
-      if(result.status === 'error'){
-        toast.error(result.message || "Something went wrong! Please try again.");
-        return;
-      }
+    if (result.status === "success") {
+      toast.success(result.message);
+      localStorage.removeItem("email");
+      navigate("/login");
+      return
+    }
 
-      console.log("come over here: ", result);
-      
-  
+    toast.error(result.message || "Something went wrong! Please try again.");
   };
 
   const handleResendOtp = async () => {
-    const email = localStorage.getItem("email");
-    if (!email) {
-      toast.error("Something went wrong! Please try again.");
+    const result = await dispatch(resendOtp(email)).unwrap();
+
+    if (result.status === "failed") {
+      toast.error(result.message || "Something went wrong! Please try again.");
       return;
     }
-    try {
-      const response = await resendOtp(email);
-    
-      if (response.success === true) {
-        toast.success(response.message);
-        setTimeout(() => window.location.reload(), 2000);
-      } else {
-        toast.error(response);
-      }
-    } catch (error) {
-      toast.error(error || "Something went wrong! Please try again.");
+    if (result.status === "success") {
+      toast.success(result.message);
+      window.location.reload();
     }
   };
 

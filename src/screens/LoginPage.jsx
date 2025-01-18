@@ -2,38 +2,36 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import LoginValidation from "../validations/LoginValidation";
 import login from "../assets/images/login.png";
 import Button from "../components/Button";
-import { loginUser } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { customerLogin } from "../redux/slices/authSlice";
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.login);
+  const navigate = useNavigate();
   const initialValues = {
     email: "",
     password: "",
   };
 
-  const navigate = useNavigate();
-
-  const handleSubmit = async (values, { setSubmitting }) => {
-    setSubmitting(true);
-    const { email, password } = values;
-
-    try {
-      const response = await loginUser(email, password);
-      console.log(response);
-      if (response.data.success === true) {
-        const { access_token } = response.headers;
-        localStorage.setItem("token", access_token);
-        toast.success(response.data.message);
-        navigate("/dashboard");
-      } else {
-        toast.error("Login failed. Please check your credentials.");
-      }
-    } catch (error) {
-      toast.error(error.message); 
-    } finally {
-      setSubmitting(false);
+  const handleSubmit = async (values) => {
+    console.log(values);
+    const result = await dispatch(customerLogin(values)).unwrap();
+    console.log(result);
+    if (result.status === "failed") {
+      toast.error(result.message || "Something went wrong! Please try again.");
+      return;
     }
+    if (result.data.status === "success") {
+      console.log(result.data.message)
+      localStorage.setItem("token", result.headers.access_token);
+      toast.success(result.data.message);
+      navigate("/dashboard");
+      return;
+    }
+    toast.error(result.message);
   };
 
   return (
@@ -59,7 +57,7 @@ const LoginPage = () => {
               validationSchema={LoginValidation}
               onSubmit={handleSubmit}
             >
-              {({ isSubmitting }) => (
+              {() => (
                 <Form className="space-y-4">
                   <div>
                     <label
@@ -104,7 +102,7 @@ const LoginPage = () => {
                   </div>
                   <div className="flex justify-end">
                     <a
-                      href="/start-forgot-password"
+                      href="/start-forget-password"
                       className="text-sm text-customGreen"
                     >
                       Forgot password?
@@ -114,9 +112,9 @@ const LoginPage = () => {
                   <div>
                     <Button
                       type="submit"
-                      disabled={isSubmitting}
+                      disabled={isLoading}
                       className="!w-full"
-                      title={isSubmitting ? "Submitting..." : "Login"}
+                      title={isLoading ? "Submitting..." : "Login"}
                     />
                   </div>
                 </Form>

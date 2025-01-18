@@ -6,7 +6,7 @@ const useGet = async (url, token = null) => {
     method: "get",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      token,
     },
   });
 };
@@ -18,20 +18,21 @@ const usePost = async (url, data, token = null) => {
     data: data,
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
+      token,
     },
   });
 };
 
-const usePatch = async (url, data = null) => {
-
-    return  axios({
-      url: url,
-      method: "patch",
-      data: data
-     
-    });
-   
+const usePatch = async (url, data = null,token = null) => {
+  return axios({
+    url: url,
+    method: "patch",
+    data: data,
+    headers: {
+      "Content-Type": "application/json",
+      token,
+    },
+  });
 };
 
 const useDelete = async (url) => {

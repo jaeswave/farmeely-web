@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 import signUpValidation from "../validations/signUpValidation";
 import signup from "../assets/images/signup.png";
 import Button from "../components/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createCustomerAccount } from "../redux/slices/customerSlice";
 import { toast } from "react-toastify";
 import { IS_VERIFY, IS_EXIST } from "../enums";
 
 const SignUpPage = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const { isLoading } = useSelector((state) => state.customer);
+  const { isLoading } = useSelector((state) => state.customer);
+  const navigate = useNavigate();
+
   const initialValues = {
     surname: "",
     othernames: "",
@@ -21,8 +22,6 @@ const SignUpPage = () => {
     phone: "",
   };
 
-  // console.log(Urls.verifyEmail);
-
   const handleSubmit = async (values) => {
     const { email } = values;
 
@@ -30,32 +29,25 @@ const SignUpPage = () => {
     localStorage.setItem("email", email);
 
     // Dispatch the createCustomerAccount action
-    const result = await dispatch(createCustomerAccount(values));
-
-    if (createCustomerAccount.rejected.match(result)) {
-      console.log(result);
-      const errorMessage =
-        result.payload.message || "Something went wrong! Please try again.";
-      if (result.payload.isVerify === IS_VERIFY) {
-        toast.error(errorMessage);
-        navigate("/verify-email");
-      } else if (result.payload.isVerify === IS_EXIST) {
-        toast.error(errorMessage);
-        navigate("/login");
-      } else {
-        toast.error(errorMessage);
-      }
+    const result = await dispatch(createCustomerAccount(values)).unwrap();
+    console.log(result);
+    if (result.status === "failed" && result.isVerify === IS_VERIFY) {
+      toast.error(result.message || "Something went wrong! Please try again.");
+      navigate("/verify-email");
+      return;
+    }
+    if (result.status === "failed" && result.isExist === IS_EXIST) {
+      toast.error(result.message || "Something went wrong! Please try again.");
+      navigate("/login");
+      return;
+    }
+    if (result.status === "success") {
+      toast.success(result.message);
+      navigate("/verify-email");
       return;
     }
 
-    if (createCustomerAccount.fulfilled.match(result)) {
-      const customerData = result.payload;
-      toast.success(
-        customerData.message ||
-          "Account created successfully. Please verify your account."
-      );
-      navigate("/verify-email");
-    }
+    toast.error(result.message || "Something went wrong! Please try again.");
   };
 
   return (
@@ -81,7 +73,7 @@ const SignUpPage = () => {
               validationSchema={signUpValidation}
               onSubmit={handleSubmit}
             >
-              {({ isLoading }) => (
+              {() => (
                 <Form className="space-y-4">
                   <div>
                     <label

@@ -1,105 +1,127 @@
-import { useState } from "react";
+import { Formik, Form, Field } from "formik";
+import OtpInput from "react-otp-input";
+import { toast } from "react-toastify";
 import Button from "../components/Button";
+import completePasswordValidation from "../validations/completePasswordValidation";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { completeForgetPassword } from "../redux/slices/forgetPasswordSlice";
 
 const CompleteForgetPasswordPage = () => {
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoading } = useSelector((state) => state.forgetPassword);
 
-  const handleOtpChange = (e, index) => {
-    const value = e.target.value;
-
-    if (value.match(/^[0-9]$/) || value === "") {
-      const newOtp = [...otp];
-      newOtp[index] = value;
-      setOtp(newOtp);
-
-      if (value && index < otp.length - 1) {
-        const nextInput = document.getElementById(`otp-input-${index + 1}`);
-        if (nextInput) {
-          nextInput.focus();
-        }
-      }
-    }
+  const initialValues = {
+    otp: "",
+    newPassword: "",
+    confirmPassword: "",
   };
 
-  const handleKeyDown = (e, index) => {
-    if (e.key === "Backspace" && otp[index] === "" && index > 0) {
-      const prevInput = document.getElementById(`otp-input-${index - 1}`);
-      if (prevInput) {
-        prevInput.focus();
-      }
-    }
-  };
+  const renderInput = (props) => (
+    <input
+      {...props}
+      className="!w-[20px] sm:!w-[40px] md:!w-[70px] h-[70px] text-center text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-customGreen"
+    />
+  );
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const otpCode = otp.join("");
-    if (otpCode.length !== 6) {
-      alert("Please enter a valid 6-digit OTP.");
+  const handleSubmit = async (values) => {
+    const email = localStorage.getItem("email");
+    const data = {
+      email: email,
+      otp: values.otp,
+      newPassword: values.newPassword,
+      repeatPassword: values.confirmPassword,
+    };
+
+    const result = await dispatch(completeForgetPassword(data)).unwrap();
+    console.log("--------------", result);
+    if (result.status === "failed") {
+      toast.error(result.message || "Something went wrong! Please try again.");
+      window.location.reload();
       return;
     }
-    if (newPassword !== confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+    if (result.status === "success") {
+      toast.success(result.message);
+      localStorage.removeItem("email");
+      navigate("/login");
     }
-    console.log("OTP:", otpCode);
-    console.log("New Password:", newPassword);
+    toast.error(result.message || "Something went wrong! Please try again.");
   };
 
   return (
-    <div className="h-screen flex items-center justify-center bg-customGreen bg-opacity-[8%]">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-[55%] h-[70%]">
+    <div className="h-screen flex items-center justify-center bg-customGreen">
+      <div className="bg-white p-8 rounded-lg shadow-lg mx-auto">
         <h2 className="text-5xl font-bold text-center mb-4">Reset Password</h2>
         <p className="text-customBlack text-center mb-6">
           Enter the OTP sent to your email and set a new password.
         </p>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="flex justify-center space-x-2">
-            {otp.map((digit, index) => (
-              <input
-                key={index}
-                id={`otp-input-${index}`}
-                type="text"
-                value={digit}
-                onChange={(e) => handleOtpChange(e, index)}
-                onKeyDown={(e) => handleKeyDown(e, index)}
-                maxLength={1}
-                className="w-12 h-12 text-center text-xl border rounded-lg focus:outline-none focus:ring-2 focus:ring-customGreen"
-                placeholder="-"
+        <Formik
+          initialValues={initialValues}
+          validationSchema={completePasswordValidation}
+          onSubmit={handleSubmit}
+        >
+          {({ values, errors, touched, setFieldValue }) => (
+            <Form className="space-y-4">
+              <div className="flex justify-center mb-4">
+                <OtpInput
+                  value={values.otp}
+                  onChange={(otp) => setFieldValue("otp", otp)}
+                  numInputs={6}
+                  isInputNum
+                  separator={<span className="mx-4">-</span>}
+                  renderInput={renderInput}
+                  containerStyle="flex justify-between space-x-4"
+                />
+                {errors.otp && touched.otp && (
+                  <p className="text-red-500 text-sm mt-1">{errors.otp}</p>
+                )}
+              </div>
+              <div>
+                <label htmlFor="newPassword" className="block text-gray-700">
+                  New Password
+                </label>
+                <Field
+                  id="newPassword"
+                  name="newPassword"
+                  type="password"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-customGreen"
+                  placeholder="Enter new password"
+                />
+                {errors.newPassword && touched.newPassword && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.newPassword}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label
+                  htmlFor="confirmPassword"
+                  className="block text-gray-700"
+                >
+                  Confirm Password
+                </label>
+                <Field
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-customGreen"
+                  placeholder="Confirm new password"
+                />
+                {errors.confirmPassword && touched.confirmPassword && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.confirmPassword}
+                  </p>
+                )}
+              </div>
+              <Button
+                type="submit"
+                title={isLoading ? "Submitting..." : "Reset Password"}
+                className="!w-full"
               />
-            ))}
-          </div>
-          <div>
-            <label htmlFor="newPassword" className="block text-gray-700">
-              New Password
-            </label>
-            <input
-              id="newPassword"
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              required
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-customGreen"
-              placeholder="Enter new password"
-            />
-          </div>
-          <div>
-            <label htmlFor="confirmPassword" className="block text-gray-700">
-              Confirm Password
-            </label>
-            <input
-              id="confirmPassword"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-customGreen"
-              placeholder="Confirm new password"
-            />
-          </div>
-          <Button type="submit" title="Reset Password" className="!w-full" />
-        </form>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );

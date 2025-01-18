@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import Button from "../components/Button";
+import { Link } from "react-router-dom";
 
 const QuranicCompletionPlan = (prop) => {
-  const { verseCount = 0, frequency = "daily",verseSent } = prop; // Default values
+  const { data } = prop;
+  const values = Object.keys(data).length > 0 ? data.data : null;
   const totalVerses = 6236;
 
   const [progressData, setProgressData] = useState({
@@ -16,22 +18,28 @@ const QuranicCompletionPlan = (prop) => {
   useEffect(() => {
     const calculateCompletionPlan = () => {
       // Calculate percentage complete
-      const percentageComplete = Math.min((verseCount / totalVerses) * 100, 100);
+      const percentageComplete = Math.min(
+        (values?.daily_verse_count || 0 / totalVerses) * 100,
+        100
+      );
 
       // Calculate time remaining and completion date
-      const remainingVerses = totalVerses - verseCount;
+      const remainingVerses = totalVerses - values?.daily_verse_count || 0;
       let timeRemaining = 0;
       let unit = "";
 
       // Determine timeRemaining and unit based on frequency
-      if (frequency === "daily") {
-        timeRemaining = Math.ceil(remainingVerses / verseCount) || 0;
+      if (values && values.frequency === "daily") {
+        timeRemaining =
+          Math.ceil(remainingVerses / values?.daily_verse_count) || 0;
         unit = "days";
-      } else if (frequency === "weekly") {
-        timeRemaining = Math.ceil(remainingVerses / verseCount) || 0;
+      } else if (values && values.frequency === "weekly") {
+        timeRemaining =
+          Math.ceil(remainingVerses / values?.daily_verse_count) || 0;
         unit = "weeks";
-      } else if (frequency === "monthly") {
-        timeRemaining = Math.ceil(remainingVerses / verseCount) || 0;
+      } else if (values && values.frequency === "monthly") {
+        timeRemaining =
+          Math.ceil(remainingVerses / values?.daily_verse_count) || 0;
         unit = "months";
       }
 
@@ -53,7 +61,7 @@ const QuranicCompletionPlan = (prop) => {
 
     const updatedProgress = calculateCompletionPlan();
     setProgressData(updatedProgress);
-  }, [verseCount, frequency]);
+  }, [values]);
 
   return (
     <div className="max-w-sm mx-auto bg-[#D4EDD970] rounded-lg shadow-lg p-6">
@@ -75,15 +83,16 @@ const QuranicCompletionPlan = (prop) => {
       </div>
       <p className="text-sm text-center mb-4">
         Based on your preference of{" "}
-        <span className="font-semibold">{verseCount || 0}</span> verses{" "}
-        <span className="font-semibold">{frequency}</span>, you will complete
-        the Quran in approximately{" "}
+        <span className="font-semibold">{values?.daily_verse_count || 0}</span>{" "}
+        verses{" "}
+        <span className="font-semibold">{values?.frequency || "daily"}</span>,
+        you will complete the Quran in approximately{" "}
         <span className="font-semibold">
           {progressData.timeRemaining || "0"}
         </span>{" "}
-        {frequency === "daily"
+        {values?.frequency === "daily"
           ? "days"
-          : frequency === "weekly"
+          : values?.frequency === "weekly"
           ? "weeks"
           : "months"}
         , by{" "}
@@ -91,8 +100,8 @@ const QuranicCompletionPlan = (prop) => {
       </p>
       <div className="text-sm text-center mb-4">
         <p>
-          <span className="font-bold">Verses Read:</span> {verseSent || 0} /{" "}
-          {totalVerses}
+          <span className="font-bold">Verses Read:</span>{" "}
+          {values?.emailLogs.verse_completed || 0} / {totalVerses}
         </p>
         <p>
           <span className="font-bold">Status:</span>{" "}
@@ -105,10 +114,9 @@ const QuranicCompletionPlan = (prop) => {
         The Quran is a guide for those who seek it. Keep going!
       </p>
       <div className="flex justify-center">
-        <Button
-        title="Update Your Plan"
-        className="!w-40"
-        />
+        <Link to="/update-preference">
+          <Button title="Update Your Plan" className="!w-40" />
+        </Link>
       </div>
     </div>
   );

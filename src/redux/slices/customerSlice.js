@@ -3,7 +3,7 @@ import { usePost } from "../../hooks";
 import Urls from "../../services/urls";
 
 export const createCustomerAccount = createAsyncThunk(
-  "createCustomerAccount",
+  "createAccount",
   async (data) => {
     try {
       const response = await usePost(Urls.userSignUp, data);
@@ -15,9 +15,9 @@ export const createCustomerAccount = createAsyncThunk(
 );
 
 const customerSlice = createSlice({
-  name: "customer",
+  name: "customerAccount",
   initialState: {
-    customer: {},
+    data: {},
     isLoading: false,
     error: null,
   },
@@ -30,7 +30,7 @@ const customerSlice = createSlice({
     });
     builder.addCase(createCustomerAccount.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.customer = action.payload;
+      state.data = action.payload;
     });
     builder.addCase(createCustomerAccount.rejected, (state, action) => {
       state.isLoading = false;

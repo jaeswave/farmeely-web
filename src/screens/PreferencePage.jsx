@@ -2,11 +2,15 @@ import { Formik, Form, Field } from "formik";
 import PreferenceValidation from "../validations/PreferenceValidation";
 import { surahList } from "../data";
 import Button from "../components/Button";
-import { createCustomerPreference } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { createCustomerPreference } from "../redux/slices/preferenceSlice";
 
 const PreferenceForm = () => {
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.preference);
+  const navigate = useNavigate();
   const initialValues = {
     frequency: "",
     timezone: "",
@@ -17,25 +21,18 @@ const PreferenceForm = () => {
     daily_verse_count: "",
     start_date: "",
   };
-  const navigate = useNavigate();
 
-  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-    setSubmitting(true);
+  const handleSubmit = async (values) => {
+    const result = await dispatch(createCustomerPreference(values)).unwrap();
+    console.log(values, result);
 
-    try {
-      const data = await createCustomerPreference(
-        localStorage.getItem("token"),
-        values
-      );
-      if (data.success === true) {
-        toast.success(data.message);
-        resetForm();
-        setTimeout(() => navigate("/dashboard"), 2000);
-      }
-    } catch (error) {
-      toast.error(error.message || "Something went wrong!");
-    } finally {
-      setSubmitting(false);
+    if (result.status === "error") navigate("/login");
+    else if (result.status === "success") {
+      toast.success(result.message);
+      navigate("/dashboard");
+    } else {
+      toast.error(result.message);
+      navigate("/dashboard");
     }
   };
 
@@ -52,7 +49,7 @@ const PreferenceForm = () => {
           validationSchema={PreferenceValidation}
           onSubmit={handleSubmit}
         >
-          {({ values, errors, touched, isSubmitting }) => (
+          {({ values, errors, touched }) => (
             <Form>
               <div className="grid md:grid-cols-2 gap-6 px-3 md:px-10">
                 <div className="col-span-1">
@@ -208,7 +205,7 @@ const PreferenceForm = () => {
                       max="20"
                       className="w-[80%]"
                     />
-                    <span>{values.verse_length} Verses</span>
+                    <span>{values.daily_verse_count} Verses</span>
                   </div>
                 </div>
                 <div className="col-span-1">
@@ -228,9 +225,9 @@ const PreferenceForm = () => {
               <div className="flex justify-center mt-10">
                 <Button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isLoading}
                   className="!w-1/2"
-                  title={isSubmitting ? "Submitting..." : "Save Preferences"}
+                  title={isLoading ? "Submitting..." : "Save Preferences"}
                 />
               </div>
             </Form>

@@ -1,67 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Spinner from "./Spinner";
-import { fetchDailyRandomVerse } from "../services/api";
 import Button from "./Button";
+import { getDailyRandomVerse } from "../redux/slices/dailyRandomVerseSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const DailyRandomVerse = () => {
-  const DAILY_VERSE_KEY = "dailyVerse";
-  const VERSE_TIMESTAMP_KEY = "verseTimestamp";
-
-  const [verseData, setVerseData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { isLoading, verse, error } = useSelector((state) => state.randomVerse);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const now = new Date();
-    const savedVerse = localStorage.getItem(DAILY_VERSE_KEY);
-    const savedTimestamp = localStorage.getItem(VERSE_TIMESTAMP_KEY);
+    // Dispatch the thunk to fetch the verse
+    dispatch(getDailyRandomVerse());
+  }, [dispatch]);
 
-    // Check if saved verse exists and is still valid (within 24 hours)
-    if (savedVerse && savedTimestamp) {
-      const timestamp = new Date(savedTimestamp);
-      const timeDiff = now - timestamp;
-
-      if (timeDiff < 24 * 60 * 60 * 1000) {
-        setVerseData(JSON.parse(savedVerse));
-        setLoading(false);
-        return;
-      }
-    }
-
-    // Fetch new verse if no valid data exists
-    const getDailyVerse = async () => {
-      setLoading(true);
-      try {
-        const result = await fetchDailyRandomVerse();
-        if (result.success && result.data.length > 0) {
-          const verse = result.data[0];
-          setVerseData(verse);
-
-          // Save new verse and timestamp
-          localStorage.setItem(DAILY_VERSE_KEY, JSON.stringify(verse));
-          localStorage.setItem(VERSE_TIMESTAMP_KEY, now.toISOString());
-        } else {
-          throw new Error(result.message || "No verse data available.");
-        }
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getDailyVerse();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <Spinner />;
   }
 
   if (error) {
-    return <p className="text-center text-red-500">{error}</p>;
+    return <p className="text-center text-red-500">Error: {error}</p>;
   }
 
-  if (verseData) {
+  if (verse && verse.data && verse.data.length > 0) {
+    const verseData = verse.data[0];
     return (
       <div>
         <h2 className="text-1xl font-semibold text-center mb-3 mt-3">
