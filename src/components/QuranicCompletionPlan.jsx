@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const QuranicCompletionPlan = (prop) => {
   const { data } = prop;
-  const values = Object.keys(data).length > 0 ? data.data : null;
+  const values = Object.keys(data).length > 0 ? data : null;
   const totalVerses = 6236;
 
   const [progressData, setProgressData] = useState({
@@ -19,9 +19,11 @@ const QuranicCompletionPlan = (prop) => {
     const calculateCompletionPlan = () => {
       // Calculate percentage complete
       const percentageComplete = Math.min(
-        (values?.daily_verse_count || 0 / totalVerses) * 100,
+        ((values?.daily_verse_count || 0) / totalVerses) * 100,
         100
       );
+
+      console.log("percentageComplete", percentageComplete);
 
       // Calculate time remaining and completion date
       const remainingVerses = totalVerses - values?.daily_verse_count || 0;
@@ -60,6 +62,7 @@ const QuranicCompletionPlan = (prop) => {
     };
 
     const updatedProgress = calculateCompletionPlan();
+    console.log("hello to the whole world", updatedProgress);
     setProgressData(updatedProgress);
   }, [values]);
 

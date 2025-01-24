@@ -14,6 +14,7 @@ export const featuresSectionData = [
     linkTextColor: "text-customGreen",
     textColor: "text-customBlack",
     iconBgColor: "bg-customGreen bg-opacity-30",
+    linkPath: "/personalized-delivery",
   },
   {
     id: 2,
@@ -26,6 +27,7 @@ export const featuresSectionData = [
     linkTextColor: "text-customGreen",
     textColor: "text-customBlack",
     iconBgColor: "bg-customGreen bg-opacity-30",
+    linkPath: "/tafsir-translations",
   },
   {
     id: 3,
@@ -38,6 +40,7 @@ export const featuresSectionData = [
     linkTextColor: "text-customGreen",
     textColor: "text-customBlack",
     iconBgColor: "bg-customGreen bg-opacity-30",
+    linkPath: "/custom-quranic-segments",
   },
 ];
 

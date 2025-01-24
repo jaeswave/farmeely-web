@@ -9,23 +9,24 @@ const About = () => {
           <div className="flex justify-center items-center object-contain">
             <img className="w-[80%] h-auto" src={about} alt="" />
           </div>
-          <div className=" flex flex-col  justify-center mt-10 text-center md:text-start">
-            <h2 className=" text-3xl md:text-4xl font-bold text-customBlack">
+          <div className=" flex flex-col  justify-center mt-10 text-center lg:text-start">
+            <h2 className=" text-2xl lg:text-[3rem] font-bold text-customBlack">
               About MailmeQuran.
             </h2>
-            <p className="text-1xl md:text-2xl text-customBlack mt-5">
-              Lorem Ipsumis simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the standard dummy text ever since
-              the 1500s, when an unknown printer took a galley of type and
-              scrambled it to make a type specimen book. It has survived not
-              only five centuries, but also the leap into electronic
-              typesetting, remaining essentially unchanged. It was popularised
-              in the 1960s with the release of Letraset sheets containing Lorem
-              Ipsum passages, and more recently with desktop publishing software
-              like Aldus PageMaker including versions of Lorem Ipsum.
+            <p className="text-[0.7rem] md:text-[1rem] lg:text-[1.2rem] text-customBlack mt-5">
+              MailmeQuran is an app designed to keep you connected to the Quran
+              effortlessly. It allows you to choose your preferred leisure time
+              and the number of verses you wish to read daily, weekly, or
+              monthly. Whether you’re looking to build a consistent habit or
+              strengthen your spiritual connection, MailmeQuran ensures that you
+              never miss an opportunity to engage with the Quran. With its
+              simple and user-friendly interface, the app makes it easy for
+              anyone to integrate Quranic reading into their lifestyle. Stay
+              inspired, connected, and motivated on your journey with
+              MailmeQuran.
             </p>
 
-            <div className="text-center md:text-start">
+            <div className="text-center lg:text-start">
               <Link to="/signup">
                 <Button
                   title="Sign Up Now"

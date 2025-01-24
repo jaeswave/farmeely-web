@@ -15,12 +15,12 @@ const SurahCompletion = (prop) => {
   );
 
   return (
-    <div className="bg-customGreen flex items-center justify-between rounded-3xl text-customWhite">
-      <div className="text-center lg:text-start items-center px-5 lg:w-[65%]">
+    <div className="bg-customGreen flex items-center justify-center md:justify-between rounded-3xl text-customWhite">
+      <div className="text-center md:text-start px-5 w-full lg:w-[65%]">
         <p className="font-bold text-[1.5rem] mb-3">
           Progress : Surah Completion
         </p>
-        <p className="grid lg:grid-cols-2 lg:justify-between space-x-10">
+        <p className="grid md:grid-cols-2 md:justify-between space-x-10">
           <span>
             Verses delivered:{" "}
             {Object.keys(data).length > 0 ? data.emailLogs.verse_completed : 0}
@@ -30,20 +30,20 @@ const SurahCompletion = (prop) => {
             {Object.keys(data).length > 0 ? data.emailLogs.surah_completed : 0}
           </span>
         </p>
-        <p className="grid lg:grid-cols-2 lg:justify-between space-x-10 mb-3">
+        <p className="grid md:grid-cols-2 md:justify-between space-x-10 mb-3">
           <span>Progress</span>
-          <span>{CompletionProgress}%</span>
+          <span>{CompletionProgress.toFixed(2)}%</span>
         </p>
         <div className="w-full bg-gray-200 rounded-full h-4 mb-3">
           <div
             className="bg-customBlack h-4 rounded-full text-center text-xs text-white"
             style={{ width: `${CompletionProgress}%` }}
           >
-            {CompletionProgress}%
+            {CompletionProgress.toFixed(2)}%
           </div>
         </div>
       </div>
-      <div className="place-self-center hidden sm:block object-contain mb-3">
+      <div className="place-self-center hidden md:block object-contain mb-3">
         <img className="w-[80%] h-auto" src={DashboardImage} alt="Dashboard" />
       </div>
     </div>

@@ -13,13 +13,19 @@ const Navbar = () => {
       <div className="mx-auto px-4 sm:px-6 lg:px-16 flex justify-between items-center h-16">
         <div className="text-xl font-bold">logo</div>
         <nav className="hidden md:flex space-x-6 text-customGreen">
-          <Link to="/dashboard" className="hover:text-customWhite active:text-customWhite active:bg-customGreen">
+          <Link
+            to="/dashboard"
+            className="hover:text-customWhite active:text-customWhite active:bg-customGreen"
+          >
             Dashboard
           </Link>
-          <Link to="/myverse" className="hover:text-gray-200 active:text-customWhite active:bg-customGreen">
+          <Link
+            to="/my-verses"
+            className="hover:text-gray-200 active:text-customWhite active:bg-customGreen"
+          >
             My Verse
           </Link>
-          <Link to="/bookmark" className="hover:text-gray-200">
+          <Link to="/bookmarks" className="hover:text-gray-200">
             Bookmark
           </Link>
           <Link to="/donate" className="hover:text-gray-200">
@@ -61,7 +67,7 @@ const Navbar = () => {
                 <FaMale className="h-8 w-8 text-white bg-customGreen p-1 rounded-full" />
               ) : (
                 <FaFemale className="h-8 w-8 text-white bg-customGreen p-1 rounded-full" />
-              )} 
+              )}
             </div>
             <h1>OT</h1>
             <button

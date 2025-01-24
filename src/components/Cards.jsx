@@ -15,9 +15,11 @@ const Cards = (prop) => {
             </div>
           </div>
           <h2 className="text-xl font-semibold mb-2">{card.title}</h2>
-          <p className="text-base mb-4 w-[80%]">{card.description}</p>
+          <p className="text-base mb-4 w-full lg:w-[80%]">{card.description}</p>
           <a
-            href="#"
+            href={card.linkPath}
+            target="_blank"
+            rel="noopener noreferrer"
             className={`text-sm font-medium underline ${card.linkTextColor}`}
           >
             {card.link}

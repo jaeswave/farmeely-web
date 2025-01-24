@@ -54,7 +54,7 @@ const SignUpPage = () => {
     <section className="px-3 h-screen">
       <div className=" mx-auto">
         <div className="grid lg:grid-cols-2 gap-5 ">
-          <div className="hidden lg:block max-h-screen py-2">
+          <div className="hidden lg:block max-h-screen p-20  bg-customGreen bg-opacity-[8%] rounded-lg">
             <img
               className="w-full max-h-[100%] object-cover rounded-xl"
               src={signup}

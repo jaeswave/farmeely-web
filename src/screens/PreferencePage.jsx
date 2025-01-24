@@ -6,11 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { createCustomerPreference } from "../redux/slices/preferenceSlice";
-
-const PreferenceForm = () => {
+import { useState } from "react";
+const PreferencePage = () => {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.preference);
   const navigate = useNavigate();
+  const [contactMethod, setContactMethod] = useState("");
+  const [whatsappNumber, setWhatsappNumber] = useState("");
+
   const initialValues = {
     frequency: "",
     timezone: "",
@@ -23,8 +26,20 @@ const PreferenceForm = () => {
   };
 
   const handleSubmit = async (values) => {
+    if (!contactMethod) {
+      toast.error("Please select a contact method: Email or WhatsApp.");
+      return;
+    }
+
+    if (contactMethod === "whatsapp" && !whatsappNumber) {
+      toast.error("Please provide a WhatsApp number.");
+      return;
+    }
+
+    if (contactMethod === "whatsapp") {
+      values.whatsapp_number = whatsappNumber;
+    }
     const result = await dispatch(createCustomerPreference(values)).unwrap();
-    console.log(values, result);
 
     if (result.status === "error") navigate("/login");
     else if (result.status === "success") {
@@ -222,6 +237,36 @@ const PreferenceForm = () => {
                   />
                 </div>
               </div>
+              <div className="mt-6">
+                <h3 className="text-lg font-medium mb-2">
+                  How would you like to receive verses?
+                </h3>
+                <Field
+                  as="select"
+                  name="contact_method"
+                  className="form-select w-full border border-gray-300 rounded p-2"
+                  onChange={(e) => setContactMethod(e.target.value)}
+                >
+                  <option value="">Select Contact Method</option>
+                  <option value="email">Email</option>
+                  <option value="whatsapp">WhatsApp</option>
+                </Field>
+
+                {contactMethod === "whatsapp" && (
+                  <div className="mt-4">
+                    <label className="text-sm font-medium block">
+                      Preferred WhatsApp Number
+                    </label>
+                    <input
+                      type="text"
+                      value={whatsappNumber}
+                      onChange={(e) => setWhatsappNumber(e.target.value)}
+                      placeholder="Enter your WhatsApp number"
+                      className="form-input w-full border border-gray-300 rounded p-2"
+                    />
+                  </div>
+                )}
+              </div>
               <div className="flex justify-center mt-10">
                 <Button
                   type="submit"
@@ -238,4 +283,4 @@ const PreferenceForm = () => {
   );
 };
 
-export default PreferenceForm;
+export default PreferencePage;

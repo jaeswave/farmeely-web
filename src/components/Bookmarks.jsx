@@ -1,9 +1,9 @@
 import { useState } from "react";
+import axios from "axios"; // For making HTTP requests
 
 const Bookmarks = () => {
   const [selectedBookmark, setSelectedBookmark] = useState(null);
-
-  const bookmarks = [
+  const [bookmarks, setBookmarks] = useState([
     {
       id: 1,
       surah: "Surah Al-Kahf",
@@ -33,7 +33,7 @@ const Bookmarks = () => {
       tafsir:
         "A fundamental supplication for guidance towards the righteous path in life and faith.",
     },
-  ];
+  ]);
 
   const handleBookmarkClick = (bookmark) => {
     setSelectedBookmark(bookmark);
@@ -43,47 +43,52 @@ const Bookmarks = () => {
     setSelectedBookmark(null);
   };
 
+  const handleDelete = async (bookmarkId) => {
+    try {
+      // Make an API call to delete the bookmark
+      await axios.delete(`/api/bookmarks/${bookmarkId}`); // Replace with your actual endpoint
+
+      // Update state by removing the deleted bookmark
+      setBookmarks((prevBookmarks) =>
+        prevBookmarks.filter((bookmark) => bookmark.id !== bookmarkId)
+      );
+      alert("Bookmark deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting bookmark:", error);
+      alert("Failed to delete the bookmark. Please try again.");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      {/* Header */}
-      <header className="flex items-center justify-between pb-4 border-b border-gray-300">
-        <h1 className="text-2xl font-semibold">Bookmarks</h1>
-        <nav>
-          <button className="text-green-500 mx-2">Dashboard</button>
-          <button className="text-green-500 mx-2">My Verses</button>
-          <button className="text-green-500 mx-2">Bookmarks</button>
-          <button className="text-green-500 mx-2">Donate</button>
-        </nav>
-      </header>
+      <h1 className="text-2xl font-bold mb-4">Your Bookmarks</h1>
 
-      {/* Bookmark Cards */}
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="mt-6 grid lg:grid-cols-3 gap-4">
         {bookmarks.map((bookmark) => (
           <div
             key={bookmark.id}
-            onClick={() => handleBookmarkClick(bookmark)}
-            className="p-4 bg-white shadow-md rounded-lg cursor-pointer hover:shadow-lg"
+            className="p-4 bg-customGreen bg-opacity-[8%] shadow-md rounded-lg"
           >
             <h2 className="text-lg font-semibold">
               {bookmark.surah}, Ayah {bookmark.ayah}
             </h2>
             <p className="mt-2 text-gray-600 truncate">{bookmark.text}</p>
-            <p className="mt-2 text-sm text-gray-500">Click for more details</p>
+            <div className="flex justify-between items-center mt-4">
+              <button
+                onClick={() => handleBookmarkClick(bookmark)}
+                className="text-blue-500 hover:underline"
+              >
+                View Details
+              </button>
+              <button
+                onClick={() => handleDelete(bookmark.id)}
+                className="text-red-500 hover:underline"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         ))}
-      </div>
-
-      {/* Pagination */}
-      <div className="mt-6 flex justify-center">
-        <button className="px-4 py-2 mx-1 bg-green-500 text-white rounded-lg">
-          &lt;
-        </button>
-        <button className="px-4 py-2 mx-1 bg-green-500 text-white rounded-lg">
-          Page 1
-        </button>
-        <button className="px-4 py-2 mx-1 bg-green-500 text-white rounded-lg">
-          &gt;
-        </button>
       </div>
 
       {/* Modal */}
@@ -105,17 +110,6 @@ const Bookmarks = () => {
             <p className="text-lg text-gray-600 mb-4">
               <strong>Translation:</strong> {selectedBookmark.translation}
             </p>
-            <p className="text-sm text-gray-500 mb-4">
-              <strong>Tafsir Explanation:</strong> {selectedBookmark.tafsir}
-            </p>
-            <textarea
-              placeholder="Your Reflections"
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              rows="4"
-            ></textarea>
-            <button className="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg">
-              Save Reflection
-            </button>
           </div>
         </div>
       )}

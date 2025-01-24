@@ -28,7 +28,7 @@ const QuickAccessCard = (prop) => {
         <Button
           onClick={handleButtonClick}
           title={buttonText}
-          className={` mt-4 ${buttonBgColor} !text-white !px-4 !py-2 !rounded-md !text-sm shadow-sm hover:${buttonBgColor}`}
+          className={`!w-[12rem] mt-4 ${buttonBgColor} !text-white !px-4 !py-2 !rounded-md !text-sm shadow-sm hover:${buttonBgColor}`}
         />
       </div>
       <div className="flex items-center justify-center mt-[4.5rem]">

@@ -15,7 +15,7 @@ const Navbar = () => {
     }
   };
   return (
-    <nav className="bg-customWhite text-customBlack px-8 lg:px-16 py-4 fixed top-0 left-0 w-full shadow-md z-10">
+    <nav className="bg-customWhite text-customBlack px-4 lg:px-10 py-2 fixed top-0 left-0 w-full shadow-md z-10">
       <div className="mx-auto flex justify-between items-center">
         <div className="text-2xl font-bold font-logo">LOGO</div>
         <div
@@ -50,7 +50,7 @@ const Navbar = () => {
             Contact
           </a>
         </div>
-        <div className="flex justify-between items-center space-x-6">
+        <div className="flex justify-between items-center space-x-2">
           <Link to="/login">
             <Button title="Login" className="!bg-beige" />
           </Link>

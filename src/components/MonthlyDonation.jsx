@@ -42,7 +42,7 @@ const MonthlyDonation = () => {
   };
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md w-full max-w-md mx-auto">
+    <div className="m-10 p-6 bg-white rounded-lg shadow-md w-full max-w-md mx-auto">
       <h2 className="text-2xl font-bold text-center mb-6">
         Monthly Donation Form
       </h2>

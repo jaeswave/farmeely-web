@@ -1,4 +1,5 @@
 import Navbar from "./Navbar";
+import Footer from "./Footer"
 
 const DashboardLayout = (prop) => {
   const { children } = prop;
@@ -6,6 +7,7 @@ const DashboardLayout = (prop) => {
     <div className="mx-auto">
       <Navbar />
       <main className="p-6">{children}</main>
+      <Footer />
     </div>
   );
 };

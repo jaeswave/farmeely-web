@@ -19,13 +19,11 @@ const LoginPage = () => {
   const handleSubmit = async (values) => {
     console.log(values);
     const result = await dispatch(customerLogin(values)).unwrap();
-    console.log(result);
-    if (result.status === "failed") {
+    if (result.status === "failed" || result.status === "error") {
       toast.error(result.message || "Something went wrong! Please try again.");
       return;
     }
     if (result.data.status === "success") {
-      console.log(result.data.message)
       localStorage.setItem("token", result.headers.access_token);
       toast.success(result.data.message);
       navigate("/dashboard");
@@ -38,7 +36,7 @@ const LoginPage = () => {
     <section className="px-3 h-screen">
       <div className="mx-auto ">
         <div className="grid lg:grid-cols-2 gap-6 ">
-          <div className="hidden lg:block py-2 max-h-screen">
+          <div className="hidden lg:block p-20  bg-customGreen bg-opacity-[8%] rounded-lg max-h-screen">
             <img
               className="w-full max-h-[100%] object-cover rounded-xl"
               src={login}

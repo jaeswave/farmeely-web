@@ -3,20 +3,22 @@ import { howItWorksData } from "../data";
 const HowItWorks = () => {
   return (
     <section className="py-10">
-      <div className="mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-16 md:gap- place-items-center">
-          <div className="max-w-[70%]">
+      <div className="mx-auto lg:px-4">
+        <div className="grid lg:grid-cols-2 gap-16 place-items-center">
+          <div className="px-5 lg:px-0 w-full lg:max-w-[70%] text-center lg:text-start">
             <h2 className="text-3xl font-bold mb-4">How It Works</h2>
-            <p className="text-customBlack leading-relaxed text-center md:text-start ">  
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the standard dummy text ever since
-              the 1500s, when an unknown printer took a galley of type and
-              scrambled it to make a type specimen book. It has survived not
-              only five centuries, but also the leap into electronic
-              typesetting, remaining essentially unchanged. It was popularised
-              in the 1960s with the release of Letraset sheets containing Lorem
-              Ipsum passages, and more recently with desktop publishing software
-              like Aldus PageMaker.
+            <p className="text-customBlack leading-relaxed text-center md:text-start ">
+              MailMeQuran is designed to make it easy for you to stay connected
+              with the Quran at your own pace. Once you sign up, you can set a
+              personalized schedule for receiving Quranic verses based on your
+              preferred frequency, whether it's daily, weekly, or monthly.
+              Simply choose the number of verses or specific surahs you wish to
+              receive, and we’ll send them directly to your inbox at your
+              selected time. This allows you to incorporate Quranic study and
+              reflection into your daily life, whether you have a few minutes or
+              an hour to spare. With MailMeQuran, you can stay consistent in
+              your recitation, deepen your understanding through translations
+              and Tafsir, and foster a lasting connection with the Quran.
             </p>
           </div>
 

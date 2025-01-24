@@ -42,31 +42,36 @@ const DashboardPage = () => {
     Data();
   }, [dispatch]);
 
-  console.log("hello", data);
-
   return (
     <section className="">
       <div className="mx-auto min-h-screen px- lg:px-4 mt-5">
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <h1 className="text-2xl font-bold">
-            Assalamu Alaykum,
-            {Object.keys(data).length > 0
-              ? data.data.surname[0].toUpperCase() + data.data.surname.slice(1)
-              : "Guest"}
-            !
-          </h1>
-        )}
+        <div className="text-center lg:text-start">
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <h1 className="text-1xl lg:text-2xl font-bold">
+              Assalamu Alaykum,
+              {Object.keys(data).length > 0
+                ? data.data?.surname[0].toUpperCase() +
+                  data.data?.surname.slice(1)
+                : "Guest"}
+              !
+            </h1>
+          )}
 
-        <p className="text-lg mt-1 mb-2">
-          Your next Quranic verse is scheduled for{" "}
-          <span className="font-bold">
-            {Object.keys(preferenceData).length > 0
-              ? preferenceData.schedule_time
-              : "00:00"}
-          </span>
-        </p>
+          <p className="text-sm lg:text-lg mt-1 mb-2">
+            Your next Quranic verse is scheduled for{" "}
+            <span className="font-bold">
+              {Object.keys(preferenceData).length > 0
+                ? `${preferenceData.schedule_time} ${
+                    new Date(preferenceData.emailLogs.next_sending_date)
+                      .toISOString()
+                      .split("T")[0]
+                  }`
+                : "00:00"}
+            </span>
+          </p>
+        </div>
 
         <div className="grid lg:grid-cols-[1fr_30%] gap-6">
           <div className="">
@@ -83,7 +88,7 @@ const DashboardPage = () => {
                 bgColor="bg-[#D480512E]"
                 buttonBgColor="!bg-[#D48051]"
                 buttonText="Read More"
-                routePath="/my-verse"
+                routePath="/my-verses"
               />
               <QuickAccessCard
                 title="Set Preferences"
@@ -101,6 +106,7 @@ const DashboardPage = () => {
                 bgColor="bg-[#B6E5FF45]"
                 buttonBgColor="!bg-[#17A1FA]"
                 buttonText="Update"
+                routePath="/language"
               />
               <QuickAccessCard
                 title="Tafsir Explaination"
@@ -109,6 +115,7 @@ const DashboardPage = () => {
                 bgColor="bg-[#00BE5F14]"
                 buttonBgColor="!bg-[#28A745]"
                 buttonText="Read More"
+                routePath="/tafsir"
               />
             </div>
           </div>
@@ -116,7 +123,7 @@ const DashboardPage = () => {
             <div className="bg-[#D4EDD970] rounded-md">
               <QuranicCompletionPlan data={preferenceData} />
             </div>
-            <div className="bg-[#B6E5FF61] rounded-md grid place-items-center">
+            <div className="bg-[#B6E5FF61] rounded-md grid place-items-center overflow-scroll h-[20vh]">
               <DailyRandomVerse />
             </div>
           </div>

@@ -7,20 +7,25 @@ import Button from "../components/Button";
 import {
   getPreference,
   updateCustomerPreference,
-} from "../redux/slices/preferenceSlice"; // Add these actions in your slice
+} from "../redux/slices/preferenceSlice";
 import Spinner from "../components/Spinner";
+import { surahList } from "../data";
 
 const UpdatePreference = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [preference, setPreference] = useState(null); // Store current preferences
+  const [preference, setPreference] = useState(null);
   const { isLoading } = useSelector((state) => state.preference);
 
   useEffect(() => {
     const fetchPreference = async () => {
       const result = await dispatch(getPreference()).unwrap();
+      if (result.status === "error") {
+        navigate("/login");
+      }
       if (result.status === "success") {
         setPreference(result.data);
+        console.log(result.data);
       } else {
         toast.error("Failed to load preferences.");
       }
@@ -33,13 +38,7 @@ const UpdatePreference = () => {
   }
 
   const handleSubmit = async (values) => {
-        console.log("valuesssssss", values);
-
-    if (values.schedule_time) {
-      const [hours, minutes] = values.schedule_time.split(":");
-      values.schedule_time = `${hours}:${minutes}`; // Keep only hours and minutes
-    }
-
+    console.log("valuesssssss", values);
 
     const result = await dispatch(updateCustomerPreference(values)).unwrap();
     if (result.status === "success") {
@@ -68,7 +67,8 @@ const UpdatePreference = () => {
             start_verse: preference.start_verse || "",
             is_language: preference.is_language || "",
             daily_verse_count: preference.daily_verse_count || "",
-            start_date: preference.start_date || "",
+            start_date:
+              new Date(preference.start_date).toISOString().split("T")[0] || "",
           }}
           onSubmit={handleSubmit}
         >
@@ -92,7 +92,6 @@ const UpdatePreference = () => {
                   </Field>
                 </div>
 
-                {/* Time Zone */}
                 <div className="col-span-1">
                   <label className="text-base font-medium block">
                     Time Zone
@@ -107,7 +106,6 @@ const UpdatePreference = () => {
                   </Field>
                 </div>
 
-                {/* Delivery Time */}
                 <div className="col-span-1">
                   <label className="text-base font-medium block">
                     Delivery Time
@@ -119,7 +117,6 @@ const UpdatePreference = () => {
                   />
                 </div>
 
-                {/* Start Surah */}
                 <div className="col-span-1">
                   <label className="text-base font-medium block">
                     Start Surah
@@ -129,14 +126,15 @@ const UpdatePreference = () => {
                     name="start_surah"
                     className="form-select w-full border border-gray-300 rounded p-2"
                   >
-                    <option value="">Select Surah</option>
-                    {/* Replace with dynamic surah list */}
-                    <option value="1">Surah 1</option>
-                    <option value="2">Surah 2</option>
+                    <option value="">Select Surah to Start From</option>
+                    {surahList.map((surah) => (
+                      <option key={surah.number} value={surah.number}>
+                        {`Surah ${surah.number}: ${surah.name}`}
+                      </option>
+                    ))}
                   </Field>
                 </div>
 
-                {/* Start Verse */}
                 <div className="col-span-1">
                   <label className="text-base font-medium block">
                     Start Verse
@@ -148,7 +146,6 @@ const UpdatePreference = () => {
                   />
                 </div>
 
-                {/* Preferred Language */}
                 <div className="col-span-1">
                   <label className="text-base font-medium block">
                     Preferred Language
@@ -163,7 +160,6 @@ const UpdatePreference = () => {
                   </Field>
                 </div>
 
-                {/* Daily Verse Count */}
                 <div className="col-span-1">
                   <label className="text-base font-medium block">
                     Verse Count
@@ -175,7 +171,6 @@ const UpdatePreference = () => {
                   />
                 </div>
 
-                {/* Start Date */}
                 <div className="col-span-1">
                   <label className="text-base font-medium block">
                     Start Date
