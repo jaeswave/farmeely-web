@@ -63,11 +63,13 @@ const DashboardPage = () => {
             Your next Quranic verse is scheduled for{" "}
             <span className="font-bold">
               {Object.keys(preferenceData).length > 0
-                ? `${preferenceData.schedule_time} ${
-                    new Date(preferenceData.emailLogs.next_sending_date)
-                      .toISOString()
-                      .split("T")[0]
-                  }`
+                ? `${preferenceData.schedule_time} ${new Date(
+                    preferenceData.emailLogs.next_sending_date
+                  ).toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })} `
                 : "00:00"}
             </span>
           </p>

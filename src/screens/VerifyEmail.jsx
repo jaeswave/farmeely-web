@@ -25,6 +25,7 @@ const VerifyEmail = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log(email, otp);
     const result = await dispatch(verifyCustomer({ email, otp })).unwrap();
     console.log(result);
     if (result.status === "failed") {
@@ -36,15 +37,15 @@ const VerifyEmail = () => {
       toast.success(result.message);
       localStorage.removeItem("email");
       navigate("/login");
-      return
+      return;
     }
 
-    toast.error(result.message || "Something went wrong! Please try again.");
+    toast.error(result || "Something went wrong! Please try again.");
   };
 
   const handleResendOtp = async () => {
     const result = await dispatch(resendOtp(email)).unwrap();
-
+    
     if (result.status === "failed") {
       toast.error(result.message || "Something went wrong! Please try again.");
       return;
@@ -66,7 +67,7 @@ const VerifyEmail = () => {
           enter the OTP below to verify your account.
         </p>
         <form onSubmit={handleSubmit}>
-          <div className="flex justify-center mb-4">
+          <div className="flex justify-center mb-4 mx-auto">
             <OtpInput
               value={otp}
               onChange={setOtp}

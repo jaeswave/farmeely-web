@@ -23,16 +23,19 @@ const usePost = async (url, data, token = null) => {
   });
 };
 
-const usePatch = async (url, data = null,token = null) => {
-  return axios({
+const usePatch = async (url, data = null, token = null) => {
+  const config = {
     url: url,
     method: "patch",
     data: data,
-    headers: {
+  };
+  if (token) {
+    config.headers = {
       "Content-Type": "application/json",
       token,
-    },
-  });
+    };
+  }
+  return axios(config);
 };
 
 const useDelete = async (url) => {

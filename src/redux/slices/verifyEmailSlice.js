@@ -4,14 +4,13 @@ import Urls from "../../services/urls";
 
 export const verifyCustomer = createAsyncThunk(
   "verifyCustomerAccount",
-  async ({ email, otp }) => {
+  async ({email, otp } ) => {
     try {
-      console.log("i am here: ", email, otp);
+
       const response = await usePatch(`${Urls.verifyEmail}/${email}/${otp}`);
-      console.log("i am here again: ", response.data);
       return response.data;
     } catch (error) {
-      return error.response.data;
+      return error.response.data;  
     }
   }
 );
