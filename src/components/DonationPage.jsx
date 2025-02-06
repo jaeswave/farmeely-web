@@ -1,41 +1,44 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import { usePaystackPayment, PaystackConsumer } from "react-paystack";
+import { PaystackConsumer } from "react-paystack";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useWindowSize } from "react-use";
 import Confetti from "react-confetti";
-// import { } from 'react-paystack';
 
 const DonationPage = () => {
   const [donationAmount, setDonationAmount] = useState(0);
+  const [email, setEmail] = useState("");
   const [currency, setCurrency] = useState("naira");
   const { data } = useSelector((state) => state.customerData);
   const [showConfetti, setShowConfetti] = useState(false);
   const { width, height } = useWindowSize();
+  const navigate = useNavigate();
+
+  // Check if user is logged in
+  const userEmail = data?.data?.email || email;
 
   const config = {
     reference: new Date().getTime().toString(),
-    email: data.data.email,
-    amount: donationAmount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    email: userEmail,
+    amount: donationAmount * 100, // Convert to kobo
     publicKey: import.meta.env.VITE_PAYSTACK_KEY,
   };
 
-  // you can call this function anything
   const handleSuccess = (reference) => {
-    console.log(reference);
     toast.success("Thanks for your donation 🎉");
-    setShowConfetti(() => true);
+    setShowConfetti(true);
     setTimeout(() => {
-      setShowConfetti(() => false);
-    }, 3000); // Hide confetti after 3 seconds
-
-    // Implementation for whatever you want to do with reference and after success call.
+      if (data?.data?.email) {
+        navigate("/dashboard");
+      } else {
+        navigate("/");
+      }
+    }, 10000);
   };
 
-  // you can call this function anything
   const handleClose = () => {
-    // implementation for  whatever you want to do when the Paystack dialog closed.
     console.log("closed");
   };
 
@@ -45,7 +48,7 @@ const DonationPage = () => {
 
   const handleCurrencyChange = (selectedCurrency) => {
     setCurrency(selectedCurrency);
-    setDonationAmount(0); // Reset amount when switching currency
+    setDonationAmount(0);
   };
 
   const amountOptions = {
@@ -53,11 +56,10 @@ const DonationPage = () => {
     dollar: [50, 100, 200, 500, 1000, 2000],
   };
 
-  // const initializePayment = usePaystackPayment(config);
   const componentProps = {
     ...config,
-    text: "Paystack Button Implementation",
-    onSuccess: (reference) => handleSuccess(reference),
+    text: "Donate Now",
+    onSuccess: handleSuccess,
     onClose: handleClose,
   };
 
@@ -118,26 +120,41 @@ const DonationPage = () => {
             />
           </div>
 
+          {/* Show email input if user is not logged in */}
+          {!data?.data?.email && (
+            <div className="mb-6 flex justify-center">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="px-4 py-2 border rounded-lg w-full"
+                required
+              />
+            </div>
+          )}
+
           <div className="text-center mt-6">
             <PaystackConsumer {...componentProps}>
               {({ initializePayment }) => (
                 <button
-                  onClick={() => initializePayment(handleSuccess, handleClose)}
+                  onClick={() => {
+                    if (!userEmail) {
+                      toast.error("Please enter your email to proceed.");
+                      return;
+                    }
+                    initializePayment(handleSuccess, handleClose);
+                  }}
+                  className="px-6 py-2 bg-green-500 text-white rounded-lg"
                 >
-                  Paystack Consumer Implementation
+                  Donate Now
                 </button>
               )}
             </PaystackConsumer>
-            {/* <Button
-              className="px-6 py-2 bg-green-500 text-white rounded-lg"
-              title="Continue"
-              onClick={() => {
-                initializePayment(onSuccess, onClose);
-              }}
-            /> */}
           </div>
         </div>
       </section>
+
       {showConfetti && <Confetti width={width} height={height} />}
     </>
   );
