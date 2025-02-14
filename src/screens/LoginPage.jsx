@@ -1,6 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import LoginValidation from "../validations/LoginValidation";
-import login from "../assets/images/login.png";
+import login from "../assets/images/quran1.png";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -17,15 +17,15 @@ const LoginPage = () => {
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
+ 
     const result = await dispatch(customerLogin(values)).unwrap();
-    if (result.status === "failed" || result.status === "error") {
-      toast.error(result.message || "Something went wrong! Please try again.");
+    if (result?.status === "failed" || result?.status === "error") {
+      toast.error(result?.message || "Something went wrong! Please try again.");
       return;
     }
     if (result.data.status === "success") {
-      localStorage.setItem("token", result.headers.access_token);
-      toast.success(result.data.message);
+      localStorage.setItem("token", result?.headers?.access_token);
+      toast.success(result?.data?.message || "Login successful");
       navigate("/dashboard");
       return;
     }
@@ -33,21 +33,21 @@ const LoginPage = () => {
   };
 
   return (
-    <section className="px-3 h-screen">
+    <section className=" h-screen">
       <div className="mx-auto ">
         <div className="grid lg:grid-cols-2 gap-6 ">
-          <div className="hidden lg:block p-20  bg-customGreen bg-opacity-[8%] rounded-lg max-h-screen">
+          <div className="hidden lg:block bg-customGreen bg-opacity-[8%] max-h-screen">
             <img
-              className="w-full max-h-[100%] object-cover rounded-xl"
+              className="w-full max-h-[100%] object-cover"
               src={login}
               alt=""
             />
           </div>
           <div className="flex flex-col justify-center w-full lg:w-[85%] mx-auto place-self-center px-5 py-5">
             <h1 className="text-center text-5xl font-bold">
-              Login into your account
+              Login 
             </h1>
-            <p className="mb-10 text-center">
+            <p className="mb-10 mt-5 text-center">
               Welcome back! Login to your account to continue
             </p>
             <Formik
@@ -69,7 +69,7 @@ const LoginPage = () => {
                       name="email"
                       type="email"
                       placeholder="Enter your email"
-                      className="bg-gray-200 mt-1 block p-1 h-10 w-full border-gray-300 rounded-sm shadow-sm focus:ring-blue focus:border-blue-100"
+                      className="bg-gray-200 mt-1 block p-1 h-12 w-full border-gray-300 rounded-sm shadow-sm focus:ring-blue focus:border-blue-100"
                     />
                     <ErrorMessage
                       name="email"
@@ -90,7 +90,7 @@ const LoginPage = () => {
                       name="password"
                       type="password"
                       placeholder="Enter your password"
-                      className="bg-gray-200 mt-1 block p-1 h-10 w-full border-gray-300 rounded-sm shadow-sm focus:ring-blue focus:border-blue-100"
+                      className="bg-gray-200 mt-1 block p-1 h-12 w-full border-gray-300 rounded-sm shadow-sm focus:ring-blue focus:border-blue-100"
                     />
                     <ErrorMessage
                       name="password"

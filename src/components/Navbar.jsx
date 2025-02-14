@@ -5,8 +5,11 @@ import { IoMdClose } from "react-icons/io";
 import "animate.css";
 import { handleScroll } from "../utils";
 import { Link } from "react-router-dom";
+
 const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
 
   const toggleNav = () => {
     if (navOpen) setNavOpen(false);
@@ -25,12 +28,24 @@ const Navbar = () => {
               : "hidden md:space-x-10 md:block"
           }`}
         >
-          <a
-            onClick={() => handleScroll("home")}
-            className="hover:text-customGreen cursor-pointer"
-          >
-            Home
-          </a>
+          {
+            // If user is logged in, show logout button
+            token ? (
+              <Link to="/dashboard"
+              className="hover:text-customGreen cursor-pointer"
+            >
+              Dashboard
+            </Link>
+            ) : (
+              <a
+              onClick={() => handleScroll("home")}
+              className="hover:text-customGreen cursor-pointer"
+            >
+              Home
+            </a>
+            )
+          }
+         
           <a
             onClick={() => handleScroll("about")}
             className="hover:text-customGreen cursor-pointer"
@@ -51,9 +66,23 @@ const Navbar = () => {
           </a>
         </div>
         <div className="flex justify-between items-center space-x-2">
-          <Link to="/login">
-            <Button title="Login" className="!bg-beige" />
-          </Link>
+          {
+            // If user is logged in, show logout button
+            token ? (
+              <Button 
+              className="!bg-beige"
+              title="Logout" onClick={() => {
+                localStorage.removeItem("token");
+                setToken(null);
+                window.location.reload();
+              }} />
+            ) : (
+              <Link to="/login">
+                <Button title="Login" className="!bg-beige" />
+              </Link>
+            )
+          }
+         
           <Link to="/donate">
             <Button title="Donate" />
           </Link>

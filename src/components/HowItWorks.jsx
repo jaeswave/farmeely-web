@@ -8,17 +8,7 @@ const HowItWorks = () => {
           <div className="px-5 lg:px-0 w-full lg:max-w-[70%] text-center lg:text-start">
             <h2 className="text-3xl font-bold mb-4">How It Works</h2>
             <p className="text-customBlack leading-relaxed text-center md:text-start ">
-              MailMeQuran is designed to make it easy for you to stay connected
-              with the Quran at your own pace. Once you sign up, you can set a
-              personalized schedule for receiving Quranic verses based on your
-              preferred frequency, whether it's daily, weekly, or monthly.
-              Simply choose the number of verses or specific surahs you wish to
-              receive, and we’ll send them directly to your inbox at your
-              selected time. This allows you to incorporate Quranic study and
-              reflection into your daily life, whether you have a few minutes or
-              an hour to spare. With MailMeQuran, you can stay consistent in
-              your recitation, deepen your understanding through translations
-              and Tafsir, and foster a lasting connection with the Quran.
+            MailMeQuran makes it effortless to stay connected with the Quran at your own pace. Simply sign up and customize your schedule—choose how often you’d like to receive verses, whether daily, weekly, or monthly. Select the number of verses or specific surahs you wish to receive, and we’ll deliver them straight to your inbox at your preferred time. This flexible approach helps you seamlessly integrate Quranic recitation and reflection into your routine, whether you have just a few minutes or a full hour. With MailMeQuran, you can build consistency, deepen your understanding through translations and Tafsir, and cultivate a meaningful, lasting connection with the Quran.
             </p>
           </div>
 

@@ -24,19 +24,19 @@ const DashboardPage = () => {
       const result = await dispatch(
         getCustomerDetails(localStorage.getItem("token"))
       ).unwrap();
-      if (result.status === "error") {
+      if (result?.status === "error") {
         localStorage.removeItem("token");
         navigate("/login");
       }
     };
 
     Data();
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   useEffect(() => {
     const Data = async () => {
       const result = await dispatch(getPreference()).unwrap();
-      setPreferenceData(result.data);
+      setPreferenceData(result?.data);
     };
 
     Data();
@@ -50,7 +50,7 @@ const DashboardPage = () => {
             <Loader />
           ) : (
             <h1 className="text-1xl lg:text-2xl font-bold">
-              Assalamu Alaykum,
+              Assalamu Alaykum,{ " "}
               {Object.keys(data).length > 0
                 ? data.data?.surname[0].toUpperCase() +
                   data.data?.surname.slice(1)
@@ -60,72 +60,76 @@ const DashboardPage = () => {
           )}
 
           <p className="text-sm lg:text-lg mt-1 mb-2">
-            Your next Quranic verse is scheduled for{" "}
+           
             <span className="font-bold">
               {Object.keys(preferenceData).length > 0
-                ? `${preferenceData.schedule_time} ${new Date(
+                ? ` Your next Quranic verse is scheduled for ${preferenceData.schedule_time} ${new Date(
                     preferenceData.emailLogs.next_sending_date
                   ).toLocaleDateString("en-US", {
                     month: "long",
                     day: "numeric",
                     year: "numeric",
                   })} `
-                : "00:00"}
-            </span>
+                : " "}
+            </span><br />
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-[1fr_30%] gap-6">
-          <div className="">
-            <SurahCompletion data={preferenceData} />
+        <div className="grid lg:grid-cols-[1fr_35%] gap-6">
+         {/* Quick Access  starts*/}
+            <div className="">
+              <SurahCompletion data={preferenceData} />
 
-            <h1 className="text-2xl font-bold mt-4 ml-5 text-center lg:text-start">
-              Quick Access
-            </h1>
-            <div className="grid md:grid-cols-2 mt-4 gap-4">
+              <h1 className="text-2xl font-bold mt-4 ml-5 text-center lg:text-start">
+                Quick Access
+              </h1>
+              <div className="grid md:grid-cols-2 mt-4 gap-4">
+
               <QuickAccessCard
-                title="My Verses"
-                description="Displays the last received verse (Arabic text) and its translation"
-                icon={myVerse}
-                bgColor="bg-[#D480512E]"
-                buttonBgColor="!bg-[#D48051]"
-                buttonText="Read More"
-                routePath="/my-verses"
-              />
-              <QuickAccessCard
-                title="Set Preferences"
-                description="Update your delivery time, language preference, and more"
-                icon={preference}
-                bgColor="bg-[#9647FF14]"
-                buttonBgColor="!bg-[#9647FF]"
-                buttonText="Set Now"
-                routePath="/preference"
-              />
-              <QuickAccessCard
-                title="Change Language"
-                description="Choose your preferred translation language"
-                icon={language}
-                bgColor="bg-[#B6E5FF45]"
-                buttonBgColor="!bg-[#17A1FA]"
-                buttonText="Update"
-                routePath="/language"
-              />
-              <QuickAccessCard
-                title="Tafsir Explaination"
-                description="Enhanced your understanding of the Quran with Tafsir"
-                icon={tafsir}
-                bgColor="bg-[#00BE5F14]"
-                buttonBgColor="!bg-[#28A745]"
-                buttonText="Read More"
-                routePath="/tafsir"
-              />
+                  title="Set Preferences"
+                  description="Update your delivery time, language preference, and more"
+                  icon={preference}
+                  bgColor="bg-[#9647FF14]"
+                  buttonBgColor="!bg-[#9647FF]"
+                  buttonText="Set Now"
+                  routePath="/preference"
+                />
+                <QuickAccessCard
+                  title="My Verses"
+                  description="Displays the last received verse (Arabic text) and its translation in your preferred language.
+                  "
+                  icon={myVerse}
+                  bgColor="bg-[#D480512E]"
+                  buttonBgColor="!bg-[#D48051]"
+                  buttonText="Read More"
+                  routePath="/my-verses"
+                />
+                <QuickAccessCard
+                  title="Change Language"
+                  description="Choose your preferred translation language"
+                  icon={language}
+                  bgColor="bg-[#B6E5FF45]"
+                  buttonBgColor="!bg-[#17A1FA]"
+                  buttonText="Update"
+                  routePath="/language"
+                />
+                <QuickAccessCard
+                  title="Tafsir Explaination"
+                  description="Enhanced your understanding of the Quran with Tafsir"
+                  icon={tafsir}
+                  bgColor="bg-[#00BE5F14]"
+                  buttonBgColor="!bg-[#28A745]"
+                  buttonText="Read More"
+                  routePath="/tafsir"
+                />
+              </div>
             </div>
-          </div>
+          {/* Quick Access  ends*/}
           <div className="bg-[#979B9D29] grid grid-row-2 gap-4 rounded-3xl p-5">
             <div className="bg-[#D4EDD970] rounded-md">
               <QuranicCompletionPlan data={preferenceData} />
             </div>
-            <div className="bg-[#B6E5FF61] rounded-md grid place-items-center overflow-scroll h-[20vh]">
+            <div className="bg-[#B6E5FF61] rounded-md grid place-items-center overflow-scroll h-[40vh]">
               <DailyRandomVerse />
             </div>
           </div>
