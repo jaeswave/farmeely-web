@@ -67,7 +67,7 @@ const QuranicCompletionPlan = (prop) => {
   }, [values]);
 
   return (
-    <div className="max-w-sm mx-auto bg-[#D4EDD970] rounded-lg shadow-lg p-6">
+    <div className="max-w-sm mx-auto  rounded-lg p-6">
       <h3 className="text-xl font-bold text-center mb-4">
         Your Quran Completion Plan
       </h3>

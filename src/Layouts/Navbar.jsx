@@ -3,15 +3,23 @@ import { Link } from "react-router-dom";
 import { FaFemale, FaMale } from "react-icons/fa";
 
 import { FaBars, FaTimes } from "react-icons/fa";
-
+import logo from "../assets/images/dashboard.png";
 const Navbar = () => {
   const [isMale, setIsMale] = useState(true); // Tracks male/female avatar
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Tracks dropdown menu state
 
+  function handleLogout() {
+    localStorage.removeItem("token");
+    window.location.reload();
+  }
   return (
     <header className="bg-navBg shadow-md">
       <div className="mx-auto px-4 sm:px-6 lg:px-16 flex justify-between items-center h-16">
-        <div className="text-xl font-bold">logo</div>
+        <div className="text-xl font-bold">
+          <Link to="/" className="text-customGreen">
+          <img src={logo} alt="logo" className="h-12 w-12" />
+          </Link>
+        </div>
         <nav className="hidden md:flex space-x-6 text-customGreen">
           <Link
             to="/dashboard"
@@ -40,11 +48,17 @@ const Navbar = () => {
               <FaFemale className="h-8 w-8 text-white bg-customGreen p-1 rounded-full" />
             )}
           </div>
-          <button
+          {/* <button
             onClick={() => setIsMale(!isMale)}
             className="bg-white text-blue-600 font-bold py-1 px-2 rounded hidden md:block"
           >
             {isMale ? "M" : "F"}
+          </button> */}
+           <button
+            onClick={ handleLogout}
+            className="bg-white text-blue-600 font-bold py-1 px-2 rounded hidden md:block"
+          >
+            Logout
           </button>
           <button
             className="block md:hidden focus:outline-none"
