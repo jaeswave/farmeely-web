@@ -1,33 +1,16 @@
-const Cards = (prop) => {
-  const { data } = prop;
+import React from "react";
+
+const Card = (props) => {
+  const { icon, title, description } = props;
   return (
-    <>
-      {data.map((card) => (
-        <div
-          key={card.id}
-          className={`p-12 rounded-lg shadow-lg ${card.bgColor} ${card.textColor} hover:shadow-lg transition-all`}
-        >
-          <div className="flex items-center justify-start space-x-4 mb-4">
-            <div
-              className={`h-12 w-12 flex items-center justify-center rounded-full  ${card.iconBgColor}`}
-            >
-              <span className="text-2xl">{card.icon}</span>
-            </div>
-          </div>
-          <h2 className="text-xl font-semibold mb-2">{card.title}</h2>
-          <p className="text-base mb-4 w-full lg:w-[80%]">{card.description}</p>
-          <a
-            href={card.linkPath}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`text-sm font-medium underline ${card.linkTextColor}`}
-          >
-            {card.link}
-          </a>
-        </div>
-      ))}
-    </>
+    <div className="bg-cardBlue p-8 rounded-2xl shadow-md text-center ">
+      <div className="place-self-center mb-8 text-6xl text-customBlue">
+        <img src={icon} alt={title} className="w-15 h-12 font-extrabold " />
+      </div>
+      <h3 className="font-bold font-urbanist text-lg mt-3">{title}</h3>
+      <p className="text-gray-600 mt-2">{description}</p>
+    </div>
   );
 };
 
-export default Cards;
+export default Card;

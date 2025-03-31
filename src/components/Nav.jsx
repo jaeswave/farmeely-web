@@ -1,0 +1,51 @@
+import React from "react";
+import logo from "../assets/images/logo.png";
+import Button from "../components/Button";
+import { useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { IoMdClose } from "react-icons/io";
+import useScreenSize from "../hooks/UseScreenSize";
+import { Link } from "react-router-dom";
+
+const Nav = () => {
+  const [navOpen, setNavOpen] = useState(false);
+  useScreenSize(setNavOpen);
+  const toggleNav = () => {
+    setNavOpen(!navOpen);
+  };
+  return (
+    <nav className="w-[90%] bg-white rounded-full py-2 mx-auto  absolute top-8 left-0 right-0 z-50 ">
+      <div className="flex justify-between items-center px-3">
+        <div className="object-contain">
+          <img src={logo} alt="logo" className="w-[50%] md:w-[80%]" />
+        </div>
+
+        <div
+          className={`space-x-5
+          ${
+            navOpen
+              ? "bg-white flex flex-col items-center absolute top-24 left-0 w-full text-2xl space-y-4 py-8 min-h-[45%]"
+              : "hidden md:block"
+          }
+          `}
+        >
+          <Link to="/">Home</Link>
+          <Link to="/about-us">About Us</Link>
+          <Link to="/products">Products</Link>
+          <Link to="/faqs">FAQs</Link>
+        </div>
+        <div className="flex justify-between items-center space-x-2">
+          <Button title="Contact Us" className=" hidden md:block" />
+          <span
+            className="text-3xl cursor-pointer md:hidden"
+            onClick={toggleNav}
+          >
+            {navOpen ? <IoMdClose /> : <GiHamburgerMenu />}
+          </span>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Nav;

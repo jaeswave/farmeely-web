@@ -3,13 +3,22 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      backgroundImage: {
+        "hero-bg": "url('/src/assets/images/heroBg.png')",
+        "about-bg": "url('/src/assets/images/aboutBg.png')",
+        "join-bg": "url('/src/assets/images/joinBg.png')",
+        "product-bg": "url('/src/assets/images/productHero.png')",
+
+      },
+      fontFamily: {
+        urbanist: ["Urbanist"],
+        outfit: ["Outfit"],
+      },
       colors: {
-        customGreen: "#28A745",
-        customBlack: "#000000",
+        customBlue: "#322F69",
+        customSkyblue: "#0AAEF0",
         customWhite: "#FFFFFF",
-        footerBg: "#2E7D32",
-        navBg: "#E8F4F8",
-        beige: "#B69A6C",
+        cardBlue: "#EEF9FE",
       },
     },
   },

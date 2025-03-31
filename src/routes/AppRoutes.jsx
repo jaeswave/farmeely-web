@@ -1,45 +1,22 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Paths from "./paths";
-import DashboardLayout from "../Layouts/DashboardLayout";
+import Layout from "../layouts";
 
-function PrivateRoute({ children }) {
-  const isAuthenticated = localStorage.getItem("token");
-  return isAuthenticated ? children : <Navigate to="/login" />;
-}
-
-const AppRoutes = () => {
+const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        {Paths.map((route, index) => {
-          const Element = route.protected ? (
-            <PrivateRoute>{route.element}</PrivateRoute>
-          ) : (
-            route.element
-          );
-
-          return (
-            <Route
-              key={index}
-              path={route.path}
-              element={
-                route.layout ? (
-                  <DashboardLayout>{Element}</DashboardLayout>
-                ) : (
-                  Element
-                )
-              }
-            />
-          );
-        })}
+        {Paths.map(({ path, element, hasLayout }, index) => (
+          <Route
+            key={index}
+            path={path}
+            element={hasLayout ? <Layout>{element}</Layout> : element}
+          />
+        ))}
       </Routes>
     </Router>
   );
 };
 
-export default AppRoutes;
+export default AppRouter;

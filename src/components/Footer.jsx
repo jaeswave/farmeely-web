@@ -1,72 +1,88 @@
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaLinkedinIn,
-  FaInstagram,
-} from "react-icons/fa";
+import React from "react";
+import logo from "../assets/images/logo.png"; // Replace with actual path
 
 const Footer = () => {
   return (
-    <footer className="bg-footerBg text-white py-11 px-">
-      <div className="container mx-auto px-10 ">
-        <div className="grid md:grid-cols-3 space-x-5 space-y-6 md:space-y-0">
-          <div className="flex flex-col items-center lg:items-start ">
-            <div className="mb-4">LOGO</div>
-            <p className="text-sm max-w-60 text-center md:text-start">
-              Lorem ipsum dolor amet, lorem ipsum dolore amet lorem ipsum dolor
-              amet noddi dnjsdklds jdskdspmkldkmckmnm kslds slddsldsld l
-            </p>
-            <div className="flex mt-4 space-x-4">
-              <a href="#" className="hover:text-gray-300">
-                <FaFacebookF className="text-2xl" />
-              </a>
-              <a href="#" className="hover:text-gray-300">
-                <FaTwitter className="text-2xl" />
-              </a>
-              <a href="#" className="hover:text-gray-300">
-                <FaLinkedinIn className="text-2xl" />
-              </a>
-              <a href="#" className="hover:text-gray-300">
-                <FaInstagram className="text-2xl" />
-              </a>
-            </div>
+    <footer className="bg-customBlue text-white py-10 px-6 md:px-20">
+      <div className="container mx-auto flex flex-col md:flex-row gap-8">
+        <div className="place-items-center  md:place-items-start w-full md:w-[50%]">
+          <div className="bg-white w-[25%] px-3">
+            <img src={logo} alt="Mahfuz Microfinance" className="w-32 mb-4" />
           </div>
-
-          <div className="text-center">
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
+          <p className="text-sm w-full md:w-[45%] text-center md:text-start">
+            Lorem ipsum dolor sit amet consectetur. Enim aliquet dui nulla
+            vulputate.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 place-items-center space-y-5 md:space-y-0 md:flex  w-full md:w-[50%] md:justify-between">
+          <div className="">
+            <h3 className="font-semibold text-lg mb-3">Short links</h3>
+            <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="hover:text-gray-300">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-gray-300">
+                <a href="#" className="hover:underline">
                   About Us
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-300">
-                  Features
+                <a href="#" className="hover:underline">
+                  Products
                 </a>
               </li>
+
               <li>
-                <a href="#" className="hover:text-gray-300">
-                  Contact Us
+                <a href="#" className="hover:underline">
+                  FAQs
                 </a>
               </li>
             </ul>
           </div>
 
-          <div className="text-center ">
-            <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
-            <p className="text-sm">+2338096542356</p>
-            <p className="text-sm">info@MailmeQuran.com</p>
+          <div className="">
+            <ul className="space-y-2 text-sm">
+              <li>
+                <a href="#" className="hover:underline">
+                  Wallet
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:underline">
+                  Cards
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:underline">
+                  Takaful
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="">
+            <h3 className="font-semibold text-lg mb-3">Other pages</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <a href="#" className="hover:underline">
+                  Help Center
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:underline">
+                  Contact Us
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-      <div className="mt-20 text-center text-sm ">
-        <p>&copy; 2024 @ MailmeQuran</p>
+
+      <div className="mt-10 border-t border-gray-400 pt-4 text-sm flex flex-col md:flex-row justify-between items-center space-y-0 md:space-y-3">
+        <p>
+          All rights reserved{" "}
+          <a href="#" className="hover:underline font-bold">
+            Privacy Policy
+          </a>
+        </p>
+        <p>&copy; 2025 Mahfuz MFB. All rights reserved.</p>
       </div>
     </footer>
   );
