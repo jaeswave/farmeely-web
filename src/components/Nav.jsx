@@ -1,4 +1,3 @@
-import React from "react";
 import logo from "../assets/images/logo.png";
 import Button from "../components/Button";
 import { useState } from "react";

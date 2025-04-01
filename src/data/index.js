@@ -7,12 +7,12 @@ import idea from "../assets/icons/idea.png";
 import shield from "../assets/icons/shield.png";
 import staraward from "../assets/icons/staraward.png";
 import userground from "../assets/icons/userground.png";
-import team1 from "../assets/images/team1.png"
-import team2 from "../assets/images/team2.png"
-import team3 from "../assets/images/team3.png"
-import team4 from "../assets/images/team4.png"
-import team5 from "../assets/images/team5.png"
-import ourProduct from "../assets/images/ourProducts.png"
+import team1 from "../assets/images/team1.png";
+import team2 from "../assets/images/team2.png";
+import team3 from "../assets/images/team3.png";
+import team4 from "../assets/images/team4.png";
+import team5 from "../assets/images/team5.png";
+import ourProduct from "../assets/images/ourProducts.png";
 
 export const featuresCardData = [
   {
@@ -70,21 +70,21 @@ export const ourProductsData = [
 
 export const benefits = [
   {
-    id:1,
+    id: 1,
     icon: checkMark,
     title: "Ethical & Interest-Free Banking",
     description:
       "Experience a banking system that aligns with your values, ensuring financial transactions without interest, promoting fairness and ethical wealth management.",
   },
   {
-    id:2,
+    id: 2,
     icon: chart,
     title: "Competitive Profit Returns (Mudaraba)",
     description:
       "Maximize your financial growth with our Mudaraba investment model, offering profit-sharing opportunities that provide competitive returns while adhering to ethical principles.",
   },
   {
-    id:3,
+    id: 3,
     icon: customerService,
     title: "24/7 Human Support",
     description:
@@ -147,11 +147,10 @@ export const ourValuesData = [
   },
 ];
 
-
 export const teamMembers = [
   {
     id: 1,
-    image: team1 ,
+    image: team1,
     name: "BARR. MOSHOOD SHEHU",
     title: "Chairman",
   },
@@ -181,17 +180,12 @@ export const teamMembers = [
   },
 ];
 
-
 export const products = [
   {
     title: "Mahfuz Wallet",
     description:
       "Your everyday digital wallet to send, receive, and manage finances easily.",
-    features: [
-      "Instant Transfers",
-      "Linked to Your Bank",
-      "Savings & Microfinance Access",
-    ],
+    features: ["Asset Financing", "Business Financing", "Investment Solutions"],
     image: ourProduct,
   },
   {
