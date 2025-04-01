@@ -16,7 +16,7 @@ const ProductCard = (props) => {
           ))}
         </ul>
       </div>
-      <div className="w-full md:w-1/2">
+      <div className="w-full md:w-1/2 place-items-center">
         <img
           src={image}
           alt={title}

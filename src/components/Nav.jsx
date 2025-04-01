@@ -13,6 +13,9 @@ const Nav = () => {
   const toggleNav = () => {
     setNavOpen(!navOpen);
   };
+  const closeMenu = () => {
+    setNavOpen(false);
+  };
   return (
     <nav className="w-[90%] bg-white rounded-full py-2 mx-auto  absolute top-8 left-0 right-0 z-50 ">
       <div className="flex justify-between items-center px-3">
@@ -29,10 +32,18 @@ const Nav = () => {
           }
           `}
         >
-          <Link to="/">Home</Link>
-          <Link to="/about-us">About Us</Link>
-          <Link to="/products">Products</Link>
-          <Link to="/faqs">FAQs</Link>
+          <Link to="/" onClick={closeMenu}>
+            Home
+          </Link>
+          <Link to="/about-us" onClick={closeMenu}>
+            About Us
+          </Link>
+          <Link to="/products" onClick={closeMenu}>
+            Products
+          </Link>
+          <Link to="/faqs" onClick={closeMenu}>
+            FAQs
+          </Link>
         </div>
         <div className="flex justify-between items-center space-x-2">
           <Button title="Contact Us" className=" hidden md:block" />
