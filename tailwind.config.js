@@ -8,7 +8,6 @@ export default {
         "about-bg": "url('/src/assets/images/aboutBg.png')",
         "join-bg": "url('/src/assets/images/joinBg.png')",
         "product-bg": "url('/src/assets/images/productHero.png')",
-
       },
       fontFamily: {
         urbanist: ["Urbanist"],
@@ -19,6 +18,15 @@ export default {
         customSkyblue: "#0AAEF0",
         customWhite: "#FFFFFF",
         cardBlue: "#EEF9FE",
+      },
+      keyframes: {
+        'scroll-left': {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+      },
+      animation: {
+        'scroll-left': 'scroll-left 20s linear infinite',
       },
     },
   },

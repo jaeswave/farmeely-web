@@ -1,26 +1,49 @@
-import React from "react";
-import Button from "./Button";
-
+import { motion } from "framer-motion";
+import Button from "../components/Button";
+import { div } from "framer-motion/client";
 const Hero = (props) => {
-  const { title, description, buttonText, backGround } = props;
+  const {
+    title,
+    highlight,
+    description,
+    buttonText,
+    showImages = false,
+    image1,
+    image2,
+    backgroundClass,
+  } = props;
+
   return (
-    <div className="p-3">
-      <section
-        className={`${backGround} rounded-lg relative bg-cover min-h-[70vh] md:min-h-[130vh] w-full pt-4 px-4 md:px-0`}
-      >
-        <div className="text-white place-self-center md:place-self-start text-center md:text-start mx-auto md:w-1/2 mt-[30%] md:mt-[18%] md:ml-[7%]">
-          <h1 className="font-urbanist text-[3rem] md:text-[4.5rem] font-semibold leading-none">
-            {title}
-          </h1>
-          <p className="text-1xl md:text-[1.19rem] mt-10 md:mt-4 font-outfit md:w-[75%]">
-            {description}
-          </p>
-          <Button
-            title={buttonText}
-            className="!bg-customSkyblue mt-8 md:mt-4"
+    <div
+      className={`w-full mx-h-[70vh] p-6 grid place-items-center md:grid-cols-2 items-center ${backgroundClass}`}
+    >
+      <div className="z-10 w-full md:w-[90%] text-white text-center md:text-start md:ml-10">
+        <h1 className="font-urbanist place-self-center text-3xl md:text-5xl lg:text-7xl xl:text-8xl font-bold leading-loose w-fit">
+          Banking the{" "}
+          <span className="text-customSkyblue italic">{highlight}</span> Way!
+        </h1>
+        <p className="md:mt-6 md:mb-6 text-base md:text-lg font-outfit">
+          {description}
+        </p>
+        <Button title={buttonText} className="bg-customSkyblue" />
+      </div>
+      {showImages && (
+        <motion.div
+          className="mx-w-auto min-h-auto translate-y-4"
+          animate={{ opacity: [0.8, 1.5, 2] }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <img
+            src={image1}
+            alt="Hero Image 1"
+            className="w-full h-full object_fit object-cover hidden md:block"
           />
-        </div>
-      </section>
+        </motion.div>
+      )}
     </div>
   );
 };

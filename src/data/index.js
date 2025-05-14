@@ -13,6 +13,8 @@ import team3 from "../assets/images/team3.png";
 import team4 from "../assets/images/team4.png";
 import team5 from "../assets/images/team5.png";
 import ourProduct from "../assets/images/ourProducts.png";
+import heroGroup from "../assets/images/heroGroup.png";
+import heroBackG from "../assets/images/heroBackG.png";
 
 export const featuresCardData = [
   {
@@ -93,11 +95,14 @@ export const benefits = [
 ];
 
 export const landingData = {
-  title: "Ethical, Sharia-Compliant Banking for You",
+  title: "Banking the",
+  highlight: "Ethical",
   description:
     "Manage your money with innovative, interest-free digital solutions tailored for your values.",
   buttonText: "Discover Ethical Banking",
-  backGround: "bg-hero-bg",
+  showImages: true,
+  image1: heroGroup,
+  backgroundClass: "bg-hero-bg",
 };
 
 export const aboutData = {

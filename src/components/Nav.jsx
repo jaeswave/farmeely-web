@@ -16,14 +16,14 @@ const Nav = () => {
     setNavOpen(false);
   };
   return (
-    <nav className="w-[90%] bg-white rounded-full py-2 mx-auto  absolute top-8 left-0 right-0 z-50 ">
+    <nav className="w-[90%] bg-white rounded-full py-2 mx-auto ">
       <div className="flex justify-between items-center px-3">
         <div className="object-contain">
           <img src={logo} alt="logo" className="w-[50%] md:w-[80%]" />
         </div>
 
         <div
-          className={`space-x-5
+          className={`space-x-4 lg:space-x-14
           ${
             navOpen
               ? "bg-white flex flex-col items-center absolute top-24 left-0 w-full text-2xl space-y-4 py-8 min-h-[45%]"
