@@ -15,6 +15,9 @@ import team5 from "../assets/images/team5.png";
 import ourProduct from "../assets/images/ourProducts.png";
 import heroGroup from "../assets/images/heroGroup.png";
 import heroBackG from "../assets/images/heroBackG.png";
+import w1 from "../assets/images/1.png";
+import w2 from "../assets/images/2.png";
+import w3 from "../assets/images/3.png";
 
 export const featuresCardData = [
   {
@@ -279,5 +282,29 @@ export const faqs = [
     question: "Are there any subscription fees?",
     answer:
       "Our basic services are free, but we offer premium features with a subscription plan.",
+  },
+];
+
+export const prducts = [
+  {
+    title: "Mahfuz Wallet",
+    description:
+      "Users can easily transfer money to other Mahfuz users or other banks (NIBSS), pay bills, make cardless withdrawals, and manage their savings from one place.",
+    image: w1,
+    buttonText: "Get started",
+  },
+  {
+    title: "Mahfuz Card",
+    description:
+      "A physical and virtual card for your Mahfuz wallet for ATM withdrawals and POS transactions. Secure and interest-free.",
+    image: w2,
+    buttonText: "Request a card",
+  },
+  {
+    title: "Mahfuz Takaful, Automatic & Target Savings",
+    description:
+      "Save with purpose, access interest-free mutual protection, and set financial targets with full transparency.",
+    image: w3,
+    buttonText: "Get started",
   },
 ];
