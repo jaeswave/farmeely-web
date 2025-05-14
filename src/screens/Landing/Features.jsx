@@ -6,7 +6,7 @@ const Features = () => {
   return (
     <section>
       <section className="py-14 mx-auto">
-        <div className="mx-auto px-4 md:px-20 grid md:grid-cols-[1fr,2fr] gap-10 lg:gap-20">
+        <div className="mx-auto px-4 md:px-20 grid xl:grid-cols-[1fr,2fr] gap-10 lg:gap-20">
           <div>
             <h2 className="font-outfit text-[1rem] font-bold text-center lg:text-start">
               F E A T U R E S
