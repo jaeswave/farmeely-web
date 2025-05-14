@@ -106,19 +106,24 @@ export const landingData = {
 };
 
 export const aboutData = {
-  title: "Redefining Ethical Digital Banking",
+  title: "Redefining Digital Banking",
+  highlight: "Ethical",
   description:
     "Mahfuz MFB is pioneering non-interest, Sharia-compliant financial solutions designed for everyone seeking fairness, transparency, and security.",
+  showImages: false,
   buttonText: "Learn More",
-  backGround: "bg-about-bg",
+  backgroundClass: "bg-hero-bg",
 };
 
 export const productData = {
-  title: "Explore Our Ethical Financial Products",
+  title: "Explore Our Financial Products",
+  highlight: "Ethical",
+
   description:
     "Smart, Sharia-compliant solutions built to empower your financial journey.",
+  showImages: false,
   buttonText: "View Our Products",
-  backGround: "bg-product-bg",
+  backgroundClass: "bg-hero-bg",
 };
 
 export const ourValuesData = [

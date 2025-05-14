@@ -1,46 +1,26 @@
-import femaleImg from "../../assets/images/femaleImg.png";
-import maleImg from "../../assets/images/maleImg.png";
-import scaleIcon from "../../assets/images/scaleIcon.png";
-import halalIcon from "../../assets/images/halalIcon.png";
+import section2 from "../../assets/images/section2.png";
+
 import Button from "../../components/Button";
 
 const SectionTwo = () => {
   return (
-    <div className="w-full min-h-screen py-10 px-4 flex justify-center">
-      <div className="w-[90%] place-self-center border-2 grid md:grid-cols-2 gap-10">
-        <div className="relative w-[50%] border-2 min-h-[80vh] ">
+    <div className="w-full min-h-screen py-10 px-4 flex justify-center mb-10">
+      <div className="w-[90%] place-self-center grid lg:grid-cols-2 gap-10">
+        <div className="place-items-center">
           <img
-            src={femaleImg}
-            alt="female"
-            className="w-[60%] h-auto rounded-full object-cover z-10"
-          />
-
-          <img
-            src={maleImg}
-            alt="male"
-            className="mx-w-[60%] h-auto rounded-full object-cover absolute bottom-0 right-[50px] top-[300px] z-10"
-          />
-
-          <img
-            src={scaleIcon}
-            alt="icon"
-            className="absolute right-0 top-1/4 w-[30%] h-auto rounded-full bg-white p-2 shadow-md"
-          />
-
-          <img
-            src={halalIcon}
-            alt="halal"
-            className="absolute left-10 bottom-[30px] w-12 h-12 rounded-full bg-white p-2 shadow-md"
+            src={section2}
+            alt="images"
+            className="w-[90%] h-auto object-cover"
           />
         </div>
 
-        <div className="w-[50%] border- text-center md:text-left">
-          <h2 className="text-2xl md:text-4xl font-bold text-customBlue leading-snug">
+        <div className="w-full py-20 text-center lg:text-start">
+          <h2 className="text-2xl md:text-4xl font-bold font-outfit text-customBlue mb-5">
             We are a Digital <br />
             Non-interest <br />
             Microfinance Bank
           </h2>
-          <p className="mt-4 text-customBlue max-w-md">
+          <p className=" text-customBlue font-urbanist w-full lg:max-w-[70%] mb-10">
             We set to offer a wide range of financial services to users. It has
             come to revolutionize the way people make payments and manage their
             finances in the country. It will also offer a range of innovative

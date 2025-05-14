@@ -19,7 +19,7 @@ const Hero = (props) => {
     >
       <div className="z-10 w-full md:w-[90%] text-white text-center md:text-start md:ml-10">
         <h1 className="font-urbanist place-self-center text-3xl md:text-5xl lg:text-7xl xl:text-8xl font-bold leading-loose w-fit">
-          Banking the{" "}
+          {title}{" "}
           <span className="text-customSkyblue italic">{highlight}</span> Way!
         </h1>
         <p className="md:mt-6 md:mb-6 text-base md:text-lg font-outfit">
