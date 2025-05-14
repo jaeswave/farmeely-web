@@ -22,28 +22,28 @@ export const featuresCardData = [
     icon: balance,
     title: "Sharia-Compliant",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Aliquet nam arcu lorem phasellus non.",
+      "Built on Principles. Powered by Trust.At Mahfuz, every product and service is completely Shariah compliant, guided by the principles of fairness, transparency, and ethical finance.",
   },
   {
     id: 2,
-    icon: idea,
+    icon: shield,
     title: "Secure & Reliable",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Aliquet nam arcu lorem phasellus non.",
+      "Our mobile first platform empowers communities through trust, transparency, innovation and security while staying true to Non interest banking principles.",
   },
   {
     id: 3,
     icon: customerService,
-    title: "Fast Support",
+    title: "24/7 Support",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Aliquet nam arcu lorem phasellus non.",
+      "Need Help? We’re Always Awake! At Mahfuz, your peace of mind matters. That’s why we offer 24/7 customer support, ensuring you get fast, reliable help whenever you need it day or night.",
   },
   {
     id: 4,
     icon: bulb,
     title: "Innovative Tools",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Aliquet nam arcu lorem phasellus non.",
+      "Mahfuz equips you with a suite of innovative digital tools designed to make your financial journey simple, secure, and fully in your control. ",
   },
 ];
 
