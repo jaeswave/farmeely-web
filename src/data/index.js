@@ -308,3 +308,48 @@ export const prducts = [
     buttonText: "Get started",
   },
 ];
+
+
+
+export const questions = [
+  {
+    id: 1,
+    question: "What is MainduMP?",
+    answer: "MainduMP is a non-financial digital smartphone platform, but it will often affect. Shuttle-constant training sessions leave it to the modern logo and can now."
+  },
+  {
+    id: 2,
+    question: "How is MainduMPB different from traditional banks?",
+    answer: "" 
+  },
+  {
+    id: 3,
+    question: "Who can open an account with MainduMPB?",
+    answer: "" 
+  },
+  {
+    id: 4,
+    question: "How do I open an account?",
+    answer: ""
+  },
+  {
+    id: 5,
+    question: "What services does MainduMPB offer?",
+    answer: "" 
+  },
+  {
+    id: 6,
+    question: "Is MainduMPB safe and secure?",
+    answer: "" 
+  },
+  {
+    id: 7,
+    question: "Are there any hidden changes?",
+    answer: ""
+  },
+  {
+    id: 8,
+    question: "How do non-financial returns work?",
+    answer: "" 
+  }
+];

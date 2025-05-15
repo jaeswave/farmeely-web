@@ -12,7 +12,7 @@ const ProductsSection = () => {
         why we make ethical banking easy for everyone with transparent, interest
         free services, smart digital tools, and a customer first approach.{" "}
       </p>
-      <div className="mt-14 space-y-20">
+      <div className="mt-14 space-y-10 w-[70%] mx-auto">
         {prducts.map((product, index) => (
           <PCard key={index} {...product} reverse={index % 2 !== 0} />
         ))}

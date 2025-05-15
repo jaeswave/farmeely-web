@@ -31,7 +31,7 @@ const accountTypes = [
 
 const Benefits = () => {
   return (
-    <section className="bg-[#F7F7F7] min-h-screen py-20">
+    <section className="bg-customSkyblue bg-opacity-[10%] min-h-screen py-20">
       <div className="mx-auto w-full px-3 md:px-0 md:w-[85%]">
         <h3 className="font-outfit text-[1rem]">P R O D U C T S</h3>
         <div className="md:grid md:grid-cols-[91%_8%] w-full">
@@ -53,9 +53,11 @@ const Benefits = () => {
           {accountTypes.map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl p-4 hover:shadow-lg transition-all"
+              className="bg-customSkyblue bg-opacity-[13%] rounded-xl p-4 hover:shadow-lg transition-all"
             >
-              <h3 className="text-customeBlue text-outfit font-bold text-[1.5rem]">{item.title}</h3>
+              <h3 className="text-customBlue text-outfit font-bold text-[1.5rem]">
+                {item.title}
+              </h3>
               <p className="text-lg text-customSkyblue mb-2 font-semibold">
                 {item.subtitle}
               </p>

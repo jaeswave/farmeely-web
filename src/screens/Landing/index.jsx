@@ -4,6 +4,8 @@ import OurProducts from "./OurProducts";
 import Benefits from "./Benefits";
 import LogoAnimate from "./LogoAnimate";
 import SectionTwo from "./SectionTwo";
+import Bene from "./Bene"
+import Questions from "./Questions";
 
 const Landing = () => {
   return (
@@ -14,6 +16,8 @@ const Landing = () => {
       <Features />
       <OurProducts />
       <Benefits />
+      <Bene/>
+      <Questions />
     </>
   );
 };
