@@ -11,8 +11,7 @@ const Footer = () => {
               <img src={logo} alt="Mahfuz Microfinance" className="w-32 mb-4" />
             </div>
             <p className="text-sm w-full md:w-[45%] text-center md:text-start">
-              Lorem ipsum dolor sit amet consectetur. Enim aliquet dui nulla
-              vulputate.
+            Mahfuz MFB (Non-interest) is a non-interest digital microfinance bank in Nigeria that is set to offer a wide range of financial services to users
             </p>
           </div>
           <div className="grid grid-cols-2 place-items-center space-y-5 md:space-y-0 md:flex  w-full md:w-[50%] md:justify-between">
@@ -72,6 +71,19 @@ const Footer = () => {
                   </a>
                 </li>
               </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-lg mb-4">Contact</h3>
+              <address className="text-gray-900 space-y-2">
+                <p>T08, Lagos-Norodu Road,<br />
+                Haruna Bus Stop,<br />
+                Norodu,<br />
+                Lagos</p>
+                <p>+324 814 634 6279<br />
+                +324 802 359 5041</p>
+                <p>info@mathuzmfb.com<br />
+                mathuznimfb@gmail.com</p>
+              </address>
             </div>
           </div>
         </div>
