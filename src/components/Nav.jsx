@@ -1,10 +1,10 @@
-import logo from "../assets/images/logo.png";
+// import logo from "../assets/images/logo.png";
 import Button from "../components/Button";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 import useScreenSize from "../hooks/UseScreenSize";
-import { Link } from "react-router-dom";
+import { navLinks } from "../data";
 
 const Nav = () => {
   const [navOpen, setNavOpen] = useState(false);
@@ -16,33 +16,32 @@ const Nav = () => {
     setNavOpen(false);
   };
   return (
-    <nav className="w-[90%] bg-white rounded-full py-2 mx-auto ">
+    <nav className="w-[95%]  rounded-full py-3 px-3 mx-auto bg-customGreen text-white mt-5 ">
       <div className="flex justify-between items-center px-3">
         <div className="object-contain">
-          <img src={logo} alt="logo" className="w-[50%] md:w-[80%]" />
+          FARMEELY
+          {/* <img src={logo} alt="logo" className="w-[50%] md:w-[80%]" /> */}
         </div>
 
         <div
-          className={`space-x-4 lg:space-x-14
+          className={`space-x-4 lg:space-x-10
           ${
             navOpen
-              ? "bg-white flex flex-col items-center absolute top-24 left-0 w-full text-2xl space-y-4 py-8 min-h-[45%]"
+              ? " flex flex-col items-center absolute top-24 left-0 w-full text-2xl space-y-4 py-8 min-h-[45%]"
               : "hidden md:block"
           }
           `}
         >
-          <Link to="/" onClick={closeMenu}>
-            Home
-          </Link>
-          <Link to="/about-us" onClick={closeMenu}>
-            About Us
-          </Link>
-          <Link to="/products" onClick={closeMenu}>
-            Products
-          </Link>
-          <Link to="/faqs" onClick={closeMenu}>
-            FAQs
-          </Link>
+          {navLinks.map((item) => (
+            <a
+              key={item.name}
+              href={item.path}
+              onClick={closeMenu}
+              className="text-white hover:text-customLiteGreen"
+            >
+              {item.name}
+            </a>
+          ))}
         </div>
         <div className="flex justify-between items-center space-x-2">
           <Button title="Contact Us" className=" hidden md:block" />

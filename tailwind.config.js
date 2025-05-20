@@ -4,31 +4,33 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        "hero-bg": "url('/src/assets/images/heroBg.png')",
+        "hero-bg": "url('/src/assets/images/hero-bg.png')",
         "about-bg": "url('/src/assets/images/aboutBg.png')",
         "join-bg": "url('/src/assets/images/joinBg.png')",
         "product-bg": "url('/src/assets/images/productHero.png')",
       },
       fontFamily: {
-        urbanist: ["Urbanist"],
-        outfit: ["Outfit"],
+        poppins: ["Poppins", "sans-serif"],
       },
       colors: {
-        customBlue: "#322F69",
-        customSkyblue: "#0AAEF0",
-        customWhite: "#FFFFFF",
-        cardBlue: "#EEF9FE",
+        customGreen: "#093731",
+        customLiteGreen: "#179778",
       },
       keyframes: {
-        'scroll-left': {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-100%)' },
+        "scroll-left": {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
         },
       },
       animation: {
-        'scroll-left': 'scroll-left 20s linear infinite',
+        "scroll-left": "scroll-left 20s linear infinite",
       },
     },
   },
   plugins: [],
 };
+
+
+
+
+

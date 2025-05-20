@@ -1,12 +1,10 @@
 const Card = (props) => {
-  const { icon, title, description } = props;
+  const { description, icon,title } = props;
   return (
-    <div className="p-8 rounded-2xl text-start border-2">
-      <div className="place-self-start mb-8 text-6xl text-customBlue">
-        <img src={icon} alt={title} className="w-15 h-12 font-extrabold " />
-      </div>
-      <h3 className="font-bold font-urbanist text-lg mt-3">{title}</h3>
-      <p className="text-gray-600 mt-2">{description}</p>
+    <div className="flex items-center gap-1 md:gap-3  p-2 md:p-3 bg-customLiteGreen rounded-3xl bg-opacity-[15%]">
+      <img src={icon} alt="icon" className="w-5 h-5" />
+      <h1>{title}</h1>
+      <p className="text-xs md:text-md">{description}</p>
     </div>
   );
 };
