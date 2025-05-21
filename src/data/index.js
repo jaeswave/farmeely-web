@@ -1,8 +1,10 @@
 import checkIcon from "../assets/icons/check.png";
-import hiwone from  "../assets/images/hiw-one.png";
-import hiwtwo from  "../assets/images/hiw-two.png";
-import hiwthree from  "../assets/images/hiw-three.png";
-
+import whyImage1 from "../assets/icons/whyImage1.png";
+import whyImage2 from "../assets/icons/whyImage2.png";
+import whyImage3 from "../assets/icons/whyImage3.png";
+import hiwone from "../assets/images/hiw-one.png";
+import hiwtwo from "../assets/images/hiw-two.png";
+import hiwthree from "../assets/images/hiw-three.png";
 
 export const navLinks = [
   { name: "Home", path: "/" },
@@ -11,28 +13,26 @@ export const navLinks = [
   { name: "FAQs", path: "#faqs" },
 ];
 
-
 export const featureData = [
   {
     id: 1,
-    icon:  checkIcon,
+    icon: checkIcon,
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, repellendus.",
   },
   {
     id: 2,
-    icon:  checkIcon,
+    icon: checkIcon,
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, repellendus.",
   },
   {
     id: 3,
-    icon:  checkIcon,
+    icon: checkIcon,
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, repellendus.",
   },
 ];
-
 
 export const howItWorksData = [
   {
@@ -40,23 +40,62 @@ export const howItWorksData = [
     image: hiwone,
     number: 1,
     title: "Create or Join a group",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, repellendus.",
+    description: "Invite friends or join an open group near you ",
   },
   {
     id: 2,
     image: hiwtwo,
     number: 2,
-    title: "Lorem ipsum dolor sit amet consectetu",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, repellendus.",
+    title: "Make a Secure Payment  ",
+    description: "Only charged when group minimum is reached  .",
   },
   {
     id: 3,
     image: hiwthree,
     number: 3,
-    title: "Lorem ipsum dolor sit amet consectetu",
-    description:
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, repellendus.",
+    title: "Invite Friends",
+    description: "Share your group invite with others to fill slots faster.",
+  },
+];
+
+export const whyData = [
+  {
+    icon: whyImage1,
+    title: "Affordable Pricing",
+    description: "Enjoy wholesale rates by posting orders",
+  },
+  {
+    icon: whyImage2,
+    title: "Verified Sellers",
+    description: "Every seller is quality-checked and approved",
+  },
+  {
+    icon: whyImage3,
+    title: "Global Access",
+    description: "Order from anywhere, get it shipped home or abroad",
+  },
+  {
+    icon: checkIcon,
+    title: "Trusted & Secure",
+    description: "Order from anywhere, get it shipped home or abroad",
+  },
+];
+
+
+export const faqData = [
+  {
+    id:1,
+    question: "What is Farmeely?",
+    answer: "Group buying platform for food and native products",
+  },
+  {
+    id:2,
+    question: "Can I use it from abroad?",
+    answer: "Yes! We deliver locally and internationally",
+  },
+  {
+    id:3,
+    question: "What is Farmeely?",
+    answer: "", 
   },
 ];

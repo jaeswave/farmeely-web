@@ -1,5 +1,4 @@
 import Nav from "../components/Nav";
-import JoinSection from "../components/JoinSection";
 import Footer from "../components/Footer";
 
 const Layout = ({ children }) => {
@@ -7,7 +6,6 @@ const Layout = ({ children }) => {
     <div className="w-full">
       <Nav />
       <main>{children}</main>
-      <JoinSection />
       <Footer />
     </div>
   );

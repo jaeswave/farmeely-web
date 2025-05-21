@@ -6,8 +6,7 @@ export default {
       backgroundImage: {
         "hero-bg": "url('/src/assets/images/hero-bg.png')",
         "about-bg": "url('/src/assets/images/aboutBg.png')",
-        "join-bg": "url('/src/assets/images/joinBg.png')",
-        "product-bg": "url('/src/assets/images/productHero.png')",
+        "join-bg": "url('/src/assets/images/download.png')",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],

@@ -9,11 +9,11 @@ const HowItWorksCard = (props) => {
       </div>
 
       <div className="relative z-10">
-        <img src={image} alt="step" className="w-[100%] h-auto" />
+        <img src={image} alt="step" className="w-[120%] h-auto" />
 
-        <div className="text-center mt-3">
-          <h2 className="text-lg font-semibold mb-2">{title}</h2>
-          <p className="text-sm text-gray-600">{description}</p>
+        <div className="text-center md:text-start mt-3">
+          <h2 className="text-xl font-bold mb-5">{title}</h2>
+          <p className="text-sm md:w-[70%] w-full">{description}</p>
         </div>
       </div>
     </div>
