@@ -1,13 +1,11 @@
 import Landing from "../screens/Landing";
-// import AboutUs from "../screens/AboutUs";
-// import Products from "../screens/Products";
-// import FAQ from "../screens/FAQ";
+import About from "../screens/About";
+import Contact from "../screens/Contact";
 
 const Paths = [
   { path: "/", element: <Landing />, hasLayout: true },
-  // { path: "/about-us", element: <AboutUs />, hasLayout: true },
-  // { path: "/products", element: <Products />, hasLayout: true },
-  // { path: "/faqs", element: <FAQ />, hasLayout: true },
+  { path: "/about-us", element: <About />, hasLayout: true },
+  { path: "/contact-us", element: <Contact />, hasLayout: true },
 ];
 
 export default Paths;

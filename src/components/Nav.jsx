@@ -5,6 +5,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 import useScreenSize from "../hooks/UseScreenSize";
 import { navLinks } from "../data";
+import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
   const [navOpen, setNavOpen] = useState(false);
@@ -15,6 +16,12 @@ const Nav = () => {
   const closeMenu = () => {
     setNavOpen(false);
   };
+
+  const navigate = useNavigate();
+  const handleContactUs = () => {
+    navigate("/contact-us");
+  };
+
   return (
     <nav className="w-[95%]  rounded-full py-3 px-3 mx-auto bg-customGreen text-white mt-5 ">
       <div className="flex justify-between items-center px-3">
@@ -44,7 +51,11 @@ const Nav = () => {
           ))}
         </div>
         <div className="flex justify-between items-center space-x-2">
-          <Button title="Contact Us" className=" hidden md:block" />
+          <Button
+            title="Contact Us"
+            className=" hidden md:block"
+            onClick={handleContactUs}
+          />
           <span
             className="text-3xl cursor-pointer md:hidden"
             onClick={toggleNav}

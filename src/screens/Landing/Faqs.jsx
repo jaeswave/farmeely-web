@@ -1,5 +1,6 @@
 import { faqData } from "../../data";
 import { useState } from "react";
+import { FaArrowAltCircleDown , FaArrowAltCircleUp  } from "react-icons/fa";
 
 const Faqs = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -25,7 +26,7 @@ const Faqs = () => {
             <div className="flex justify-between items-center">
               <h3 className="text-customGreen font-semibold">{faq.question}</h3>
               <span className="text-2xl text-white bg-customGreen rounded-full ">
-                {openIndex === faq.id ? "🡅" : "🡇"}
+                {openIndex === faq.id ? <FaArrowAltCircleUp /> : <FaArrowAltCircleDown />}
               </span>
             </div>
             {openIndex === faq.id && (

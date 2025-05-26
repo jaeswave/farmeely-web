@@ -33,7 +33,6 @@ export const featureData = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, repellendus.",
   },
 ];
-
 export const howItWorksData = [
   {
     id: 1,
@@ -81,21 +80,47 @@ export const whyData = [
   },
 ];
 
-
 export const faqData = [
   {
-    id:1,
+    id: 1,
     question: "What is Farmeely?",
     answer: "Group buying platform for food and native products",
   },
   {
-    id:2,
+    id: 2,
     question: "Can I use it from abroad?",
     answer: "Yes! We deliver locally and internationally",
   },
   {
-    id:3,
+    id: 3,
     question: "What is Farmeely?",
-    answer: "", 
+    answer: "",
+  },
+];
+
+export const aboutFeatureData = [
+  {
+    id: 1,
+    icon: checkIcon,
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, repellendus.",
+  },
+  {
+    id: 2,
+    icon: checkIcon,
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, repellendus.",
+  },
+  {
+    id: 3,
+    icon: checkIcon,
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, repellendus.",
+  },
+  {
+    id: 4,
+    icon: checkIcon,
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, repellendus.",
   },
 ];
