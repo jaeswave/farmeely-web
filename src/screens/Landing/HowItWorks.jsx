@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const HowItWorks = () => {
   return (
-    <section className="relative w-full pb-20 md:pb-0">
+    <section className="relative w-full pb-20 md:pb-0" id="how-it-works">
       <div className="grid grid-cols-1 md:grid-cols-2 mx-auto min-h-[60vh] font-poppins text-center md:text-start">
         <div className="mx-auto flex flex-col pt-14 pb-32 md:pb-10 bg-customLiteGreen">
           <div className="w-[80%] mx-auto text-white">
@@ -37,11 +37,11 @@ const HowItWorks = () => {
           {howItWorksData.map((item, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: 100 }} 
-              animate={{ opacity: 1, x: 0 }} 
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{
                 duration: 0.6,
-                delay: index * 0.2, 
+                delay: index * 0.2,
                 type: "spring",
                 stiffness: 100,
               }}
@@ -52,8 +52,6 @@ const HowItWorks = () => {
           ))}
         </div>
       </div>
-
-
     </section>
   );
 };

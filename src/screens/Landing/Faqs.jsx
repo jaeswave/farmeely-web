@@ -10,7 +10,7 @@ const Faqs = () => {
   };
 
   return (
-    <section className=" py-16 px-6 md:px-16 font-poppins">
+    <section className=" py-16 px-6 md:px-16 font-poppins" id="faqs">
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-3xl md:text-5xl font-bold font-urbanist">FAQ</h2>
         <p className="mt-2 text-2xl"> Got Questions? We’ve Got Answers</p>

@@ -1,28 +1,32 @@
-const Footer = () => {
-  return (
-    <footer className="relative bg-[#f2fbf9] pt-12 pb-10 px-4 font-poppins overflow-hidden">
-      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none rotate-180">
-        <svg
-          viewBox="0 0 1440 100"
-          className="w-full h-[80px]"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,0 C480,100 960,100 1440,0 L1440,100 L0,100 Z"
-            fill="#ffffff"
-          />
-        </svg>
-      </div>
+import { footerLinks } from "../data";
+import UseSectionNavigator from "../hooks/UseSectionNavigator";
 
-      <div className="relative z-10 mx-auto">
-        <div className="flex mx-auto justify-between gap-4 w-[60%] text-sm md:text-base">
-          <a href="#about">About Us</a>
-          <a href="#mission">How It Works</a>
-          <a href="#team">FAQs</a>
-          <a href="#contact">Contact Us</a>
+
+const Footer = () => {
+
+
+  const handleNavigate = UseSectionNavigator();
+
+  const handleClick = (path) => {
+    handleNavigate(path);
+  };
+  return (
+    <footer className="mt-20 pt-12 px-4 font-poppins">
+      <div className="bg-customLiteGreen bg-opacity-[20%] rounded-t-full">
+        <div className="mx-auto grid sm:grid-cols-4 gap-4 place-items-center w-[80%]">
+          {footerLinks.map((item) => (
+            <a
+              key={item.name}
+              href={item.path}
+              className="hover:underline"
+              onClick={() => handleClick(item.path)}
+            >
+              {item.name}
+            </a>
+          ))}
         </div>
 
-        <div className="border-t border-gray-300 pt-6 mt-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-700">
+        <div className="border-t border-gray-300 pt-6 mt-6 p-6 flex flex-col md:flex-row justify-between items-center text-sm">
           <p>© 2025 Farmeely. All rights reserved.</p>
           <div className="flex space-x-6">
             <a href="#">Terms of Service</a>

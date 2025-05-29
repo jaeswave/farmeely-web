@@ -13,6 +13,14 @@ export const navLinks = [
   { name: "FAQs", path: "#faqs" },
 ];
 
+export const footerLinks = [
+  { name: "About Us", path: "/about-us" },
+  { name: "How It Works", path: "#how-it-works" },
+  { name: "FAQs", path: "#fags" },
+  { name: "Contact Us", path: "/contact-us" },
+];
+
+
 export const featureData = [
   {
     id: 1,

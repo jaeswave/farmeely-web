@@ -6,6 +6,7 @@ import { IoMdClose } from "react-icons/io";
 import useScreenSize from "../hooks/UseScreenSize";
 import { navLinks } from "../data";
 import { useNavigate } from "react-router-dom";
+import UseSectionNavigator from "../hooks/UseSectionNavigator";
 
 const Nav = () => {
   const [navOpen, setNavOpen] = useState(false);
@@ -20,6 +21,13 @@ const Nav = () => {
   const navigate = useNavigate();
   const handleContactUs = () => {
     navigate("/contact-us");
+  };
+
+  const handleNavigate = UseSectionNavigator();
+
+  const handleClick = (path) => {
+    closeMenu(); 
+    handleNavigate(path); 
   };
 
   return (
@@ -43,7 +51,7 @@ const Nav = () => {
             <a
               key={item.name}
               href={item.path}
-              onClick={closeMenu}
+              onClick={() => handleClick(item.path)}
               className="text-white hover:text-customLiteGreen"
             >
               {item.name}
